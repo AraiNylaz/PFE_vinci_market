@@ -3,7 +3,7 @@
 version: 2.1
 
 orbs: 
-  angular: okode/angular@2.0.12
+  #angular: okode/angular@2.0.12
   maven: circleci/maven@1.2.0
   github-cli: circleci/github-cli@1.0.5
   
