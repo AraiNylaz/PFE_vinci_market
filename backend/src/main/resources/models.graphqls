@@ -1,0 +1,19 @@
+schema {
+    query : Query
+}
+
+type Query {
+    users : [User]
+    user(idUser : Int) : User
+}
+
+type User{
+    idUser : Int,
+    lastName : String,
+    firstName : String,
+    password : String,
+    campus : String,
+    phone : String,
+    mail : String,
+    isAdmin : Boolean
+}
