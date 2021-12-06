@@ -1,0 +1,6 @@
+{
+  "name": "heroku pipeline",
+  "description": "heroku pipeline",
+  "repository": "https://github.com/AraiNylaz/PFE_vinci_market",
+  "image": "heroku/java"
+}
