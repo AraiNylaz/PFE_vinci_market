@@ -29,3 +29,11 @@ type SubCategory{
     idCategory:Int,
     name:String
 }
+
+type Offer{
+    idOffer : Int,
+    idProduct:Int,
+    idBuyer:Int,
+    value : Float,
+    description:String
+}

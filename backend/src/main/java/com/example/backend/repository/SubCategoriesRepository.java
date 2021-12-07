@@ -12,6 +12,8 @@ public interface SubCategoriesRepository extends PagingAndSortingRepository<Subc
 
     List<Subcategory> findAllByIdCategory(ObjectId id);
 
+    int countAllBy();
+
     Subcategory findByName(String name);
 
     void deleteByIdSubCategory(ObjectId idSubCategory);

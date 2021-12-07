@@ -1,7 +1,6 @@
 package com.example.backend.controllers;
 
 import com.example.backend.model.Subcategory;
-import com.example.backend.model.User;
 import com.example.backend.services.SubCategory.SubCategoryService;
 import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +32,7 @@ public class SubCategoryController {
 
     @PostMapping
     public ResponseEntity<Object> addSubCategory(Subcategory subcategory){
+
         Subcategory su=subCategoryService.saveSubCategory(subcategory);
         if(su==null) return ResponseEntity.noContent().build();
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()

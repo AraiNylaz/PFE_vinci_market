@@ -37,6 +37,7 @@ public class GraphQlUtility {
 
     @PostConstruct
     public GraphQL createGraphQlObject() throws IOException {
+        System.out.println("here in class GrapQIutil in method createGraphQlObject");
         File schemas = schemaResource.getFile();
         TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(schemas);
         RuntimeWiring wiring = buildRuntimeWiring();
@@ -45,6 +46,7 @@ public class GraphQlUtility {
     }
 
     public RuntimeWiring buildRuntimeWiring(){
+        System.out.println("here in class GrapQIutil in method buildRuntimeWiring");
         return newRuntimeWiring()
                 .type("Query", typeWiring -> typeWiring
                         .dataFetcher("users", allUserDataFetcher)

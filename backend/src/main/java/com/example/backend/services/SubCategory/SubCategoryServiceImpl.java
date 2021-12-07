@@ -33,6 +33,7 @@ public class SubCategoryServiceImpl implements SubCategoryService{
     @Override
     public Subcategory saveSubCategory(Subcategory subcategory) {
         if(categoryRepository.findByIdCategory(new ObjectId(String.valueOf(subcategory.getIdCategory())))!=null){
+            subcategory.setIdSubCategory(subCategoriesRepository.countAllBy()+1);
             return subCategoriesRepository.save(subcategory);
         }
         return null;

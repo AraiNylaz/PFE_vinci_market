@@ -33,7 +33,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User saveUser(User user ){
-        return userRepository.save(user );
+        user.setIdUser(userRepository.countAllBy()+1);
+        user.setAdmin(false);
+        return userRepository.save(user);
     }
     @Override
     public boolean checkUser(User user){

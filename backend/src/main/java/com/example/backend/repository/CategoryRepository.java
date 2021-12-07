@@ -9,6 +9,7 @@ import java.util.List;
 public interface CategoryRepository extends PagingAndSortingRepository<Category, ObjectId> {
     Category findByIdCategory(ObjectId id);
 
+    int countAllBy();
     List<Category> findAllBy();
 
     Category findByName(String name);

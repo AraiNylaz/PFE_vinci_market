@@ -9,6 +9,8 @@ import java.util.List;
 public interface UserRepository extends PagingAndSortingRepository<User, ObjectId> {
     List<User> findAll();
 
+    int countAllBy();
+
     User findByIdUser(ObjectId id);
 
     User findByMail(String mail);
