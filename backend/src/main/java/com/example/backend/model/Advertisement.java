@@ -19,9 +19,11 @@ public class Advertisement {
     private double price ;
     private int  idSeller ;
     private String  state;
+    private int idSousCategorie ;
     private LocalDateTime creationDate ;
 
-    public Advertisement(int idAdvertisement, String status, String title, String description, String place, double price, int idSeller, String state, LocalDateTime creationDate) {
+
+    public Advertisement(int idAdvertisement, String status, String title, String description, String place, double price, int idSeller, String state, int idSousCategorie,LocalDateTime creationDate) {
         this.idAdvertisement = idAdvertisement;
         this.status = status;
         this.title = title;
@@ -30,6 +32,7 @@ public class Advertisement {
         this.price = price;
         this.idSeller = idSeller;
         this.state = state;
+        this.idSousCategorie =idSousCategorie;
         this.creationDate = creationDate;
     }
 }

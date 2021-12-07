@@ -7,4 +7,8 @@ import java.util.List;
 public interface AdvertisementService {
     List<Advertisement> findAllAdvertisement();
     Advertisement findOneById(ObjectId id);
+    List<Advertisement> findBySousCategorie(int sousCategorie) ;
+    void deleteByid(int id);
+    Advertisement saveAdvertisement (Advertisement advertisement);
+    Advertisement updateAdvertisement(int id ,Advertisement advertisement);
 }

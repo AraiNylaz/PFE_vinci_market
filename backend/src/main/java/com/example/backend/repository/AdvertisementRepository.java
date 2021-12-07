@@ -11,4 +11,8 @@ public interface AdvertisementRepository extends PagingAndSortingRepository<Adve
     List<Advertisement> findAll();
 
     Advertisement findByIdAdvertisement(ObjectId id);
+    List<Advertisement> findByIdSousCategorie(int idSousCategorie);
+    void deleteAdvertisementByIdAdvertisement(int idAdvertisement );
+    Advertisement saveAdvertisement(Advertisement advertisement);
+
 }
