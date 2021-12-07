@@ -29,6 +29,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User findOneByMail(String mail){return userRepository.findByMail(mail);}
+
+    @Override
     public User saveUser(User user ){
         return userRepository.save(user );
     }
@@ -39,5 +42,27 @@ public class UserServiceImpl implements UserService{
             return true ;
         }
         return false ;
+    }
+
+    @Override
+    public void switchRole(ObjectId id){
+        User u=userRepository.findByIdUser(id);
+        u.setAdmin(!u.isAdmin());
+    }
+
+    @Override
+    public User updateUser(User user){
+        User u =userRepository.findByIdUser(new ObjectId(String.valueOf(user.getIdUser())));
+        u.setFirstName(user.getFirstName());
+        u.setLastName(user.getLastName());
+        u.setCampus(user.getCampus());
+        u.setPhone(user.getPhone());
+        u.setPassword(user.getPassword());
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(ObjectId id){
+        userRepository.deleteByIdUser(id);
     }
 }

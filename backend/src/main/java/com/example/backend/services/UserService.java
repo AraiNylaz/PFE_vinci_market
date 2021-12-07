@@ -8,6 +8,10 @@ import java.util.List;
 public interface UserService {
     List<User> findAllUsers();
     User findOneById(ObjectId id);
+    User findOneByMail(String mail);
     boolean checkUser(User user);
     User saveUser (User user);
+    void switchRole(ObjectId id);
+    User updateUser(User user);
+    void deleteUser(ObjectId id);
 }

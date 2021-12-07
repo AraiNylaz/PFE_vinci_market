@@ -12,4 +12,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, ObjectI
     User findByIdUser(ObjectId id);
 
     User findByMail(String mail);
+
+    void deleteByIdUser(ObjectId id);
 }
