@@ -16,7 +16,7 @@ jobs:
       - image: circleci/mongo:4.4
         environment:
           MONGO_USERNAME: dbPFE
-          MONGO_PASSWORD: motdepasse
+          MONGO_PASSWORD: VRWZ1MjlwcbFhrjr 
 
     environment:
       # Customize the JVM maximum heap limit
