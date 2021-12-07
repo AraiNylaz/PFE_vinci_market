@@ -1,9 +1,7 @@
 package com.example.backend.dataFetcher;
 
 import com.example.backend.model.Advertisement;
-import com.example.backend.model.User;
 import com.example.backend.services.AdvertisementService;
-import com.example.backend.services.UserService;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;

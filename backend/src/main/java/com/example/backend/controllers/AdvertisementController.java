@@ -1,18 +1,13 @@
 package com.example.backend.controllers;
-<<<<<<< Updated upstream
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-=======
 import com.example.backend.model.Advertisement;
-import com.example.backend.model.User;
 import com.example.backend.services.AdvertisementService;
-import com.example.backend.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
->>>>>>> Stashed changes
 
 @RestController
 @RequestMapping("/advertisements")
