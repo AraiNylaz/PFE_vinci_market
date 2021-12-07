@@ -1,7 +1,7 @@
 package com.example.backend.controllers;
 
 import com.example.backend.model.User;
-import com.example.backend.services.UserService;
+import com.example.backend.services.User.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

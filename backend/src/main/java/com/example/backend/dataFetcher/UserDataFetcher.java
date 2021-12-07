@@ -1,6 +1,6 @@
 package com.example.backend.dataFetcher;
 import com.example.backend.model.User;
-import com.example.backend.services.UserService;
+import com.example.backend.services.User.UserService;
 import graphql.schema.*;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,10 @@ public class UserDataFetcher implements DataFetcher<User> {
 
     @Override
     public User get(DataFetchingEnvironment env) {
-        Map args = env.getArguments();
+        /*Map args = env.getArguments();
         User user = userService.findOneById(new ObjectId(String.valueOf(args.get("id"))));
+        return null;*/
+        System.out.println("here on UserDataFetch");
         return null;
     }
 }

@@ -5,6 +5,7 @@ schema {
 type Query {
     users : [User]
     user(idUser : Int) : User
+    categories : [Category]
 }
 
 type User{
@@ -16,4 +17,9 @@ type User{
     phone : String,
     mail : String,
     isAdmin : Boolean
+}
+
+type Category{
+    idCategory : Int,
+    name : String
 }

@@ -1,6 +1,6 @@
 package com.example.backend.dataFetcher;
 import com.example.backend.model.User;
-import com.example.backend.services.UserService;
+import com.example.backend.services.User.UserService;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +22,12 @@ import java.util.List;
 
     @Override
     public List<User> get(DataFetchingEnvironment env) {
-        User user =  env.getSource();
+        /*User user =  env.getSource();
         List<User> friends = new ArrayList<>();
         friends = userService.findAllUsers();
-        return friends;
+        return friends;*/
+        System.out.println("here in AllUserDataFetcher");
+        return null;
+
     }
 }
