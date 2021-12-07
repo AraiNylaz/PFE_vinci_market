@@ -27,4 +27,17 @@ public class UserServiceImpl implements UserService{
     public User findOneById(ObjectId id) {
         return userRepository.findByIdUser(id);
     }
+
+    @Override
+    public User saveUser(User user ){
+        return userRepository.save(user );
+    }
+    @Override
+    public boolean checkUser(User user){
+        User u = userRepository.findByMail(user.getMail());
+        if(u.getPassword() == user.getPassword()){
+            return true ;
+        }
+        return false ;
+    }
 }

@@ -10,4 +10,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, ObjectI
     List<User> findAll();
 
     User findByIdUser(ObjectId id);
+
+    User findByMail(String mail);
 }
