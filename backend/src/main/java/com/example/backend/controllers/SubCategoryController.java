@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/subcategory")
 public class SubCategoryController {
@@ -27,10 +28,10 @@ public class SubCategoryController {
         return subCategoryService.getAllSubCategories();
     }
 
-    /*@GetMapping("/{idCategory}")
+    @GetMapping("/{idCategory}")
     public List<Subcategory> getAllSubCategoriesByIdCategory(String idCategory){
         return subCategoryService.getAllSubCategoriesByIdCategory(new ObjectId(String.valueOf(idCategory)));
-    }*/
+    }
 
     /*@PostMapping
     public ResponseEntity<Object> addSubCategory(Subcategory subcategory){
@@ -45,10 +46,8 @@ public class SubCategoryController {
     }*/
 
     @PostMapping
-    public Subcategory addSubCategory(@RequestBody String name,@RequestBody String idCategory){
-        System.out.println("here first");
-        System.out.println(name + "  " + idCategory);
-        return subCategoryService.saveSubCategory(name,new ObjectId(String.valueOf(idCategory)));
+    public Subcategory addSubCategory(@RequestBody Subcategory subcategory){
+        return subCategoryService.saveSubCategory(subcategory.getName(),new ObjectId(String.valueOf(subcategory.getIdCategory())));
     }
 
 

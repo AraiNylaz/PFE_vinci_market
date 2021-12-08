@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface OfferRepository extends PagingAndSortingRepository<Offer, ObjectId> {
 
-    int countOfferBy();
     List<Offer> getAllBy();
     List<Offer> getAllByIdProduct(ObjectId idProduct);
     Offer getOfferByIdOffer(ObjectId id);

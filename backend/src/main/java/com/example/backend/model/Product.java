@@ -1,38 +1,42 @@
 package com.example.backend.model;
 
 import lombok.Data;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
 @Data
-@Document("advertisements")
-public class Advertisement {
+@Document("products")
+public class Product {
 
     @Id
-    private int idAdvertisement;
+    private String idProduct;
     private String status;
     private String title;
     private String description ;
     private String place;
     private double price ;
-    private int  idSeller ;
+    private ObjectId  idSeller;
+    private UserDTO seller;
     private String  state;
-    private int idSousCategorie ;
+    private ObjectId idSubCategory;
+    private Subcategory subcategory;
     private LocalDateTime creationDate ;
 
-
-    public Advertisement(int idAdvertisement, String status, String title, String description, String place, double price, int idSeller, String state, int idSousCategorie,LocalDateTime creationDate) {
-        this.idAdvertisement = idAdvertisement;
+    public Product(String idProduct, String status, String title, String description, String place, double price, ObjectId idSeller, UserDTO seller, String state, ObjectId idSubCategory, Subcategory subcategory, LocalDateTime creationDate) {
+        this.idProduct = idProduct;
         this.status = status;
         this.title = title;
         this.description = description;
         this.place = place;
         this.price = price;
         this.idSeller = idSeller;
+        this.seller = seller;
         this.state = state;
-        this.idSousCategorie =idSousCategorie;
+        this.idSubCategory = idSubCategory;
+        this.subcategory = subcategory;
         this.creationDate = creationDate;
     }
 }

@@ -19,7 +19,7 @@ type User{
     isAdmin : Boolean
 }
 
-type Advertisement{
+type Product{
     idAdvertisement:Int,
     status:String,
     title:String,

@@ -1,17 +1,13 @@
 package com.example.backend.controllers;
 
 import com.example.backend.model.Category;
-import com.example.backend.model.User;
 import com.example.backend.services.Category.CategoryService;
-import com.example.backend.services.User.UserService;
 import org.bson.types.ObjectId;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/category")
 public class CategoryController {

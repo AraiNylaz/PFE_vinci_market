@@ -35,8 +35,8 @@ public class SubCategoryServiceImpl implements SubCategoryService{
     @Override
     public Subcategory saveSubCategory(String name,ObjectId id ) {
         Category c=categoryRepository.findByIdCategory(id);
-        Subcategory subcategory=new Subcategory(null,c,name);
-        System.out.println(subcategory);
+        Subcategory subcategory=new Subcategory(null,new ObjectId(String.valueOf(c.getIdCategory())),c,name);
+
         return subCategoriesRepository.save(subcategory);
     }
 
@@ -49,7 +49,6 @@ public class SubCategoryServiceImpl implements SubCategoryService{
     public Subcategory update(Subcategory subcategory) {
         Subcategory su=subCategoriesRepository.findByIdSubCategory(new ObjectId(String.valueOf(subcategory.getIdSubCategory())));
         su.setName(subcategory.getName());
-        //su.setIdCategory(su.getIdCategory());
         return subCategoriesRepository.save(su);
     }
 }

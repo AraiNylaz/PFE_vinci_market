@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping("/offers")
 public class OfferController {
@@ -28,12 +29,12 @@ public class OfferController {
         return offerService.getAllOffers();
     }
 
-    @GetMapping("/{idProduct}")
-    public List<Offer> getAllOffersByIdProduct(@PathVariable int id){
-        return offerService.getAllOffersByIdProduct(new ObjectId(String.valueOf(id)));
+    @GetMapping("/all/product/{idProduct}")
+    public List<Offer> getAllOffersByIdProduct(@PathVariable String idProduct){
+        return offerService.getAllOffersByIdProduct(new ObjectId(String.valueOf(idProduct)));
     }
 
-    @PostMapping
+   /* @PostMapping
     public ResponseEntity<Object> addOffer(@RequestBody Offer offer){
         Offer o=offerService.saveOffer(offer);
         if(o==null) return ResponseEntity.noContent().build();
@@ -42,20 +43,25 @@ public class OfferController {
                 .buildAndExpand(o.getIdOffer())
                 .toUri() ;
         return  ResponseEntity.created(location).build();
+    }*/
+
+    @PostMapping
+    public Offer addOffer(@RequestBody Offer offer){
+        return offerService.saveOffer(offer);
     }
 
     @GetMapping("/users/{idBuyer}")
-    public List<Offer> getAllOffersByIdBuyer(int idBuyer){
+    public List<Offer> getAllOffersByIdBuyer(String idBuyer){
         return offerService.getAllOffersByIdBuyer(new ObjectId(String.valueOf(idBuyer)));
     }
 
-    @GetMapping("/one/{idOffer}")
-    public Offer getOfferById(@PathVariable int idOffer){
+    @GetMapping("/{idOffer}")
+    public Offer getOfferById(@PathVariable String idOffer){
         return offerService.getOfferWithId(new ObjectId(String.valueOf(idOffer)));
     }
 
     @PutMapping("/{id}")
-    public Offer updateOffer(@PathVariable int id,Offer offer){
+    public Offer updateOffer(@PathVariable String id,Offer offer){
         return offerService.updateOffer(new ObjectId(String.valueOf(id)),offer);
     }
 
