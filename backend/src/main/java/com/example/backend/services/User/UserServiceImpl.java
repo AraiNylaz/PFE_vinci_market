@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User checkUser(User user){
         User u = userRepository.findByMail(user.getMail());
-        if(u!=null && (u.getPassword() == user.getPassword())){
+        if(u!=null && (u.getPassword().equals(user.getPassword()))){
             return u ;
         }
         return null;

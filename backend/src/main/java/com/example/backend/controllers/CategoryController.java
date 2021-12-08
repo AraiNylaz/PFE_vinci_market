@@ -28,16 +28,18 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public Category getOneCategory(@PathVariable int id){
+    public Category getOneCategory(@PathVariable String id){
         return categoryService.getOneCategory(new ObjectId(String.valueOf(id)));
     }
 
+    //pas nécessaire
+    /*
     @GetMapping("/name")
     public Category getOneCategoryByName(@RequestParam String name){
         return categoryService.getOneCategoryByName(name);
-    }
+    }*/
 
-    @PostMapping()
+    /*@PostMapping()
     public ResponseEntity<Object> addCategory(@RequestBody Category category){
         Category c=categoryService.saveCategory(category);
         if(c==null) return ResponseEntity.noContent().build();
@@ -46,10 +48,15 @@ public class CategoryController {
                 .buildAndExpand(c.getIdCategory())
                 .toUri() ;
         return  ResponseEntity.created(location).build();
+    }*/
+
+    @PostMapping
+    public Category addCategory(@RequestBody Category category){
+        return categoryService.saveCategory(category);
     }
 
     @GetMapping("/delete/{id}")
-    public void deleteCategory(@PathVariable int id){
+    public void deleteCategory(@PathVariable String id){
         categoryService.deleteCategory(new ObjectId(String.valueOf(id)));
     }
 }

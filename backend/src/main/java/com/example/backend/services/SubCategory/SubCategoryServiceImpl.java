@@ -1,5 +1,6 @@
 package com.example.backend.services.SubCategory;
 
+import com.example.backend.model.Category;
 import com.example.backend.model.Subcategory;
 import com.example.backend.repository.CategoryRepository;
 import com.example.backend.repository.SubCategoriesRepository;
@@ -27,16 +28,16 @@ public class SubCategoryServiceImpl implements SubCategoryService{
 
     @Override
     public List<Subcategory> getAllSubCategoriesByIdCategory(ObjectId id) {
-        return subCategoriesRepository.findAllByIdCategory(id);
+        Category c=categoryRepository.findByIdCategory(id);
+        return subCategoriesRepository.findAllByCategory(c);
     }
 
     @Override
-    public Subcategory saveSubCategory(Subcategory subcategory) {
-        if(categoryRepository.findByIdCategory(new ObjectId(String.valueOf(subcategory.getIdCategory())))!=null){
-            subcategory.setIdSubCategory(subCategoriesRepository.countAllBy()+1);
-            return subCategoriesRepository.save(subcategory);
-        }
-        return null;
+    public Subcategory saveSubCategory(String name,ObjectId id ) {
+        Category c=categoryRepository.findByIdCategory(id);
+        Subcategory subcategory=new Subcategory(null,c,name);
+        System.out.println(subcategory);
+        return subCategoriesRepository.save(subcategory);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class SubCategoryServiceImpl implements SubCategoryService{
     public Subcategory update(Subcategory subcategory) {
         Subcategory su=subCategoriesRepository.findByIdSubCategory(new ObjectId(String.valueOf(subcategory.getIdSubCategory())));
         su.setName(subcategory.getName());
-        su.setIdCategory(su.getIdCategory());
+        //su.setIdCategory(su.getIdCategory());
         return subCategoriesRepository.save(su);
     }
 }

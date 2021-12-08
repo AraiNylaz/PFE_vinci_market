@@ -33,13 +33,13 @@ public class MyDataLoader {
         User user1=new User("1","A","B","C","Woluwe","1","2",false);
         userRepository.save(user1);
 
-        Category c1=new Category(1,"Loisir");
-        Category c2=new Category(2,"Jardin");
+        /*Category c1=new Category("1","Loisir");
+        Category c2=new Category("2","Jardin");
         categoryRepository.save(c1);
         categoryRepository.save(c2);
-        Subcategory su1= new Subcategory(1,1,"Telephone");
-        Subcategory su2= new Subcategory(2,1,"Portable");
-        Subcategory su3= new Subcategory(3,2,"Materiel");
+        Subcategory su1= new Subcategory("1",c1,"Telephone");
+        Subcategory su2= new Subcategory("2",c1,"Portable");
+        Subcategory su3= new Subcategory("3",c2,"Materiel");*/
 
         Advertisement advertisement1 = new Advertisement(1,"a vendre","vélo","petit vélo bleu","campus woluwe",12.01,1,"en vente", 1,LocalDateTime.now());
         advertisementRepository.save(advertisement1);

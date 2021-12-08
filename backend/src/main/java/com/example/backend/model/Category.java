@@ -9,10 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Category {
 
     @Id
-    private int idCategory;
+    private String idCategory;
     private String name;
 
-    public Category(int idCategory, String name) {
+    public Category(String idCategory, String name) {
         this.idCategory = idCategory;
         this.name = name;
     }

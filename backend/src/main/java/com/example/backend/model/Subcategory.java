@@ -9,14 +9,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Subcategory {
 
     @Id
-    private int idSubCategory;
+    private String idSubCategory;
 
-    private int idCategory;
+    private Category category;
     private String name;
 
-    public Subcategory(int idSubCategory, int idCategory, String name) {
+    public Subcategory(String idSubCategory, Category category, String name) {
         this.idSubCategory = idSubCategory;
-        this.idCategory = idCategory;
+        this.category = category;
         this.name = name;
     }
 }
