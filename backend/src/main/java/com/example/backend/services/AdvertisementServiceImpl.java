@@ -37,7 +37,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
     @Override
     public Advertisement saveAdvertisement(Advertisement advertisement){
-        return advertisementRepository.saveAdvertisement(advertisement);
+        return advertisementRepository.save(advertisement);
     }
     @Override
     public Advertisement updateAdvertisement(int id ,Advertisement advertisement){
@@ -51,6 +51,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         a.setPlace(advertisement.getPlace());
         a.setPrice(advertisement.getPrice());
         a.setState(advertisement.getState());
-        return advertisementRepository.saveAdvertisement(a);
+        return advertisementRepository.save(a);
     }
 }

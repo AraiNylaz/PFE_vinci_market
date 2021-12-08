@@ -3,11 +3,8 @@ package com.example.backend.controllers;
 import com.example.backend.model.User;
 import com.example.backend.services.User.UserService;
 import org.bson.types.ObjectId;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 
 @RestController
 @RequestMapping("/users")
@@ -24,7 +21,7 @@ public class UserController {
         return userService.findAllUsers();
     }
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<Object> addUser (@RequestBody User user){
         User u = userService.saveUser(user) ;
         if(u==null) return ResponseEntity.noContent().build();
@@ -33,10 +30,16 @@ public class UserController {
                 .buildAndExpand(u.getIdUser())
                 .toUri() ;
         return  ResponseEntity.created(location).build();
+    }*/
+
+    @PostMapping
+    public User addUser (@RequestBody User user) {
+        return userService.saveUser(user);
     }
 
+
     @PostMapping("/login")
-    public boolean checkUser(@RequestBody User user){
+    public User checkUser(@RequestBody User user){
         return userService.checkUser(user);
     }
 
@@ -46,22 +49,22 @@ public class UserController {
     }
 
     @GetMapping("/detail/{id}")
-    public User getUserById(@PathVariable int id){
+    public User getUserById(@PathVariable String id){
         return userService.findOneById(new ObjectId(String.valueOf(id)));
     }
 
     @PostMapping("/role/{id}")
-    public void switchRole(@PathVariable int id){
+    public void switchRole(@PathVariable String id){
         userService.switchRole(new ObjectId(String.valueOf(id)));
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@RequestBody User user){
-       return userService.updateUser(user);
+    public User updateUser(@PathVariable String id,@RequestBody User user){
+       return userService.updateUser(new ObjectId(String.valueOf(id)),user);
     }
 
     @GetMapping("/delete/{id}")
-    public void deleteUser(@PathVariable int id){
+    public void deleteUser(@PathVariable String id){
         userService.deleteUser(new ObjectId(String.valueOf(id)));
     }
 }

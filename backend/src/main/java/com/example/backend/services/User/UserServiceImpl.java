@@ -33,34 +33,34 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User saveUser(User user ){
-        user.setIdUser(userRepository.countAllBy()+1);
         user.setAdmin(false);
         return userRepository.save(user);
     }
     @Override
-    public boolean checkUser(User user){
+    public User checkUser(User user){
         User u = userRepository.findByMail(user.getMail());
-        if(u.getPassword() == user.getPassword()){
-            return true ;
+        if(u!=null && (u.getPassword() == user.getPassword())){
+            return u ;
         }
-        return false ;
+        return null;
     }
 
     @Override
     public void switchRole(ObjectId id){
         User u=userRepository.findByIdUser(id);
         u.setAdmin(!u.isAdmin());
+        userRepository.save(u);
     }
 
     @Override
-    public User updateUser(User user){
-        User u =userRepository.findByIdUser(new ObjectId(String.valueOf(user.getIdUser())));
+    public User updateUser(ObjectId id,User user){
+        User u =userRepository.findByIdUser(id);
         u.setFirstName(user.getFirstName());
         u.setLastName(user.getLastName());
         u.setCampus(user.getCampus());
         u.setPhone(user.getPhone());
         u.setPassword(user.getPassword());
-        return userRepository.save(user);
+        return userRepository.save(u);
     }
 
     @Override

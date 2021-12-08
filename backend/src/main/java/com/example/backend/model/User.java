@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 
     @Id
-    private int idUser;
+    private String idUser;
     private String lastName;
     private String firstName;
     private String password;
@@ -18,7 +18,7 @@ public class User {
     private String mail;
     private boolean isAdmin;
 
-    public User(int idUser, String lastName, String firstName, String password, String campus, String phone, String mail, boolean isAdmin) {
+    public User(String idUser, String lastName, String firstName, String password, String campus, String phone, String mail, boolean isAdmin) {
         this.idUser = idUser;
         this.lastName = lastName;
         this.firstName = firstName;
