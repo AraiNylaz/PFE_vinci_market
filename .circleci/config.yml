@@ -2,6 +2,8 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+orbs:
+heroku: circleci/heroku@2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
@@ -51,10 +53,17 @@ jobs:
           name: Connect to DB
           command: mongo localhost --eval "printjson(db.apikeys.count());"
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
-workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+workflows:      
+heroku_deploy:
     jobs:
-      - build
+    - build
+    - heroku/deploy-via-git:
+        requires:
+            - build # only run deploy-via-git job if the build job has completed
+        filters:
+            branches:
+            only: main # only run deploy-via-git job on main branch
+      
+
+
+      
