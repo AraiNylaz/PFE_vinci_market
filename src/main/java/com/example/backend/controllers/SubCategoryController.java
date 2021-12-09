@@ -47,7 +47,13 @@ public class SubCategoryController {
 
     @PostMapping
     public Subcategory addSubCategory(@RequestBody Subcategory subcategory){
-        return subCategoryService.saveSubCategory(subcategory.getName(),new ObjectId(String.valueOf(subcategory.getIdCategory())));
+        Subcategory sub=null;
+        try{
+            sub=subCategoryService.saveSubCategory(subcategory.getName(),new ObjectId(String.valueOf(subcategory.getIdCategory())));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return sub;
     }
 
 

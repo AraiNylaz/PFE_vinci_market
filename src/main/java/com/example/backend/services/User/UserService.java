@@ -14,4 +14,5 @@ public interface UserService {
     void switchRole(ObjectId id);
     User updateUser(ObjectId id,User user);
     void deleteUser(ObjectId id);
+    void switchBan(ObjectId id);
 }

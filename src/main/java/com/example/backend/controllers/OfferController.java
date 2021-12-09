@@ -47,7 +47,13 @@ public class OfferController {
 
     @PostMapping
     public Offer addOffer(@RequestBody Offer offer){
-        return offerService.saveOffer(offer);
+        Offer o=null;
+        try{
+            o=offerService.saveOffer(offer);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return o;
     }
 
     @GetMapping("/users/{idBuyer}")
