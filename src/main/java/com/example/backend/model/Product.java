@@ -1,5 +1,7 @@
 package com.example.backend.model;
 
+import com.example.backend.Enums.Campus;
+import com.example.backend.Enums.Etat;
 import lombok.Data;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -24,9 +26,6 @@ public class Product {
     private String description ;
 
     @NotNull(message = "You have to insert a value!")
-    private String place;
-
-    @NotNull(message = "You have to insert a value!")
     private double price ;
 
     @NotNull(message = "You have to insert a value!")
@@ -34,8 +33,10 @@ public class Product {
 
     private UserDTO seller;
 
-    @NotNull(message = "You have to insert a value!")
-    private String  state;
+
+    private Etat state;
+
+    private String stateName;
 
     @NotNull(message = "You have to insert a value!")
     private ObjectId idSubCategory;
@@ -44,16 +45,16 @@ public class Product {
 
     private LocalDateTime creationDate ;
 
-    public Product(String idProduct, String status, String title, String description, String place, double price, ObjectId idSeller, UserDTO seller, String state, ObjectId idSubCategory, Subcategory subcategory, LocalDateTime creationDate) {
+    public Product(String idProduct, String status, String title, String description, double price, ObjectId idSeller, UserDTO seller, Etat state,String stateName, ObjectId idSubCategory, Subcategory subcategory, LocalDateTime creationDate) {
         this.idProduct = idProduct;
         this.status = status;
         this.title = title;
         this.description = description;
-        this.place = place;
         this.price = price;
         this.idSeller = idSeller;
         this.seller = seller;
         this.state = state;
+        this.stateName=stateName;
         this.idSubCategory = idSubCategory;
         this.subcategory = subcategory;
         this.creationDate = creationDate;

@@ -9,12 +9,12 @@ public class UserDTO {
     private String idUser;
     private String lastName;
     private String firstName;
-    private String campus;
+    private Campus campus;
     private String phone;
     private String mail;
     private boolean isAdmin;
 
-    public UserDTO(String idUser, String lastName, String firstName, String campus, String phone, String mail, boolean isAdmin) {
+    public UserDTO(String idUser, String lastName, String firstName, Campus campus, String phone, String mail, boolean isAdmin) {
         this.idUser = idUser;
         this.lastName = lastName;
         this.firstName = firstName;

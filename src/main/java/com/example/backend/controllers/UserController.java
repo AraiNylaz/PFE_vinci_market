@@ -34,8 +34,10 @@ public class UserController {
 
     @PostMapping
     public User addUser (@RequestBody User user) {
+        System.out.println("add user " + user);
         User u=null;
         try{
+            user.setCampusName(user.getCampus().getName());
             u= userService.saveUser(user);
         }catch(Exception exception){
             exception.printStackTrace();

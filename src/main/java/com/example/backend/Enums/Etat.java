@@ -17,4 +17,10 @@ public enum Etat {
     public String getName() {
         return this.name;
     }
+
+    public Etat getEtatFromString(String text){
+        if(this.getName().equals(text))return this;
+
+        return null;
+    }
 }
