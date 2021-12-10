@@ -3,7 +3,7 @@ import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.backend.model.Product;
-import com.example.backend.services.ProductService;
+import com.example.backend.services.Product.ProductService;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -50,7 +50,13 @@ public class ProductController {
 
     @PostMapping
     public Product addProduct(@RequestBody Product product) {
-        return productService.saveAdvertisement(product);
+        Product pro= null;
+        try{
+            pro=productService.saveAdvertisement(product);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pro;
     }
 
     @PutMapping ("/{id}")

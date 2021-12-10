@@ -1,4 +1,4 @@
-package com.example.backend.services;
+package com.example.backend.services.Product;
 import com.example.backend.model.Product;
 import org.bson.types.ObjectId;
 

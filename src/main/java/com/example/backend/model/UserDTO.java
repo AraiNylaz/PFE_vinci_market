@@ -1,8 +1,7 @@
 package com.example.backend.model;
 
+import com.example.backend.Enums.Campus;
 import lombok.Data;
-
-import javax.annotation.sql.DataSourceDefinitions;
 
 @Data
 public class UserDTO {

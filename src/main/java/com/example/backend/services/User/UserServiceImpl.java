@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User saveUser(User user ){
         user.setAdmin(false);
+        user.setBan(false);
         return userRepository.save(user);
     }
     @Override
@@ -66,5 +67,12 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteUser(ObjectId id){
         userRepository.deleteByIdUser(id);
+    }
+
+    @Override
+    public void switchBan(ObjectId id){
+        User u=userRepository.findByIdUser(id);
+        u.setBan(!u.isBan());
+        userRepository.save(u);
     }
 }

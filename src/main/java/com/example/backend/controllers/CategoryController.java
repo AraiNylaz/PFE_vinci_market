@@ -48,7 +48,13 @@ public class CategoryController {
 
     @PostMapping
     public Category addCategory(@RequestBody Category category){
-        return categoryService.saveCategory(category);
+        Category c=null;
+        try{
+            c=categoryService.saveCategory(category);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return c;
     }
 
     @GetMapping("/delete/{id}")

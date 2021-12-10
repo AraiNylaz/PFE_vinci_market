@@ -28,8 +28,8 @@ public class MyDataLoader {
 
     @PostConstruct
     private void generateData(){
-        User user1=new User("1","A","B","C","Woluwe","1","2",false);
-        userRepository.save(user1);
+        //User user1=new User("1","A","B","C","Woluwe","1","2",false);
+        //userRepository.save(user1);
 
         /*Category c1=new Category("1","Loisir");
         Category c2=new Category("2","Jardin");
