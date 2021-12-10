@@ -66,11 +66,6 @@ public class OfferController {
         return offerService.getOfferWithId(new ObjectId(String.valueOf(idOffer)));
     }
 
-    @PutMapping("/{id}")
-    public Offer updateOffer(@PathVariable String id,Offer offer){
-        return offerService.updateOffer(new ObjectId(String.valueOf(id)),offer);
-    }
-
     @GetMapping("/delete/{id}")
     public void deleteOffer(@PathVariable int id){
         offerService.deleteOffer(new ObjectId(String.valueOf(id)));

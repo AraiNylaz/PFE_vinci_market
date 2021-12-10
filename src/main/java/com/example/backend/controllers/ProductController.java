@@ -1,6 +1,5 @@
 package com.example.backend.controllers;
-import ch.qos.logback.core.joran.spi.InterpretationContext;
-import com.example.backend.Enums.Etat;
+import com.example.backend.Enums.State;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,8 +53,9 @@ public class ProductController {
     public Product addProduct(@RequestBody Product product) {
         Product pro= null;
         try{
-            product.setState(Etat.Debut);
+            product.setState(State.Debut);
             product.setStateName(product.getState().getName());
+            product.setStatusName(product.getStatus().getName());
             pro=productService.saveAdvertisement(product);
         }catch (Exception e){
             e.printStackTrace();
@@ -67,4 +67,24 @@ public class ProductController {
     public void updateProduct(@PathVariable ("id") String idProduct,@RequestBody Product product) {
         productService.updateProduct(new ObjectId(String.valueOf(idProduct)), product);
     }
+
+    @GetMapping("/valid/{id}")
+    public void acceptProduct(@PathVariable String idProduct){
+        productService.acceptProduct(new ObjectId(String.valueOf(idProduct)));
     }
+
+    @GetMapping("/sell/{id}")
+    public void sellProduct(@PathVariable String idProduct){
+        productService.sellProduct(new ObjectId(String.valueOf(idProduct)));
+    }
+
+    @GetMapping("refuse/{id}")
+    public void refuseProduct(@PathVariable String idProduct){
+        productService.refuseProduct(new ObjectId(String.valueOf(idProduct)));
+    }
+
+    @GetMapping("setToDelete/{id}")
+    public void setToDeleteProducts(@PathVariable String idProduct){
+        productService.setToDeleteProducts(new ObjectId(String.valueOf(idProduct)));
+    }
+}

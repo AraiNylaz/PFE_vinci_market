@@ -12,4 +12,9 @@ public interface ProductService {
     void deleteProduct(ObjectId id);
     Product saveAdvertisement (Product product);
     Product updateProduct(ObjectId id , Product product);
+    void acceptProduct(ObjectId id);
+    void sellProduct(ObjectId id);
+    void refuseProduct(ObjectId id);
+    void setToDeleteProducts(ObjectId id);
+
 }

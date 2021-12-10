@@ -1,5 +1,6 @@
 package com.example.backend.services.Product;
 
+import com.example.backend.Enums.State;
 import com.example.backend.model.Product;
 import com.example.backend.model.Subcategory;
 import com.example.backend.model.User;
@@ -57,17 +58,49 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(ObjectId idProduct , Product product){
-       /* Product a = productRepository.findByIdAdvertisement(new ObjectId(String.valueOf(id)));
-        if(a ==null){
-            throw  new InternalError("");
-        }
+        Product a = productRepository.findByIdProduct(new ObjectId(String.valueOf(product.getIdProduct())));
         a.setState(product.getState());
+        a.setStatusName(product.getStatus().getName());
         a.setTitle(product.getTitle());
         a.setDescription(product.getDescription());
-        a.setPlace(product.getPlace());
         a.setPrice(product.getPrice());
-        a.setState(product.getState());
-        return productRepository.save(a);*/
-        return null;
+
+        a.setIdSubCategory(product.getIdSubCategory());
+        a.setSubcategory(subCategoriesRepository.findByIdSubCategory(a.getIdSubCategory()));
+        return productRepository.save(a);
     }
+
+    @Override
+    public void acceptProduct(ObjectId id){
+        Product product=productRepository.findByIdProduct(id);
+        product.setState(State.Vente);
+        product.setStateName(product.getState().getName());
+        productRepository.save(product);
+    }
+
+    @Override
+    public void sellProduct(ObjectId id){
+        Product product=productRepository.findByIdProduct(id);
+        product.setState(State.Vendu);
+        product.setStateName(product.getState().getName());
+        productRepository.save(product);
+    }
+
+    @Override
+    public void refuseProduct(ObjectId id){
+        Product product=productRepository.findByIdProduct(id);
+        product.setState(State.REFUSE);
+        product.setStateName(product.getState().getName());
+        productRepository.save(product);
+    }
+
+    @Override
+    public void setToDeleteProducts(ObjectId id){
+        Product product=productRepository.findByIdProduct(id);
+        product.setState(State.SUPPRIME);
+        product.setStateName(product.getState().getName());
+        productRepository.save(product);
+    }
+
+
 }
