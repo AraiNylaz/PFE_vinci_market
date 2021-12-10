@@ -1,6 +1,6 @@
 package com.example.backend.Enums;
 
-public enum Etat {
+public enum State {
 
     Debut("En cours de validation"),
     Vente("En Vente"),
@@ -10,17 +10,11 @@ public enum Etat {
 
     private String name;
 
-    Etat(String name) {
+    State(String name) {
         this.name = name;
     }
 
     public String getName() {
         return this.name;
-    }
-
-    public Etat getEtatFromString(String text){
-        if(this.getName().equals(text))return this;
-
-        return null;
     }
 }

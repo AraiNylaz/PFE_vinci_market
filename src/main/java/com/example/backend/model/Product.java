@@ -1,7 +1,7 @@
 package com.example.backend.model;
 
-import com.example.backend.Enums.Campus;
-import com.example.backend.Enums.Etat;
+import com.example.backend.Enums.State;
+import com.example.backend.Enums.Status;
 import lombok.Data;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -18,7 +18,9 @@ public class Product {
     private String idProduct;
 
     @NotNull(message = "You have to insert a value!")
-    private String status;
+    private Status status;
+
+    private String statusName;
 
     @NotNull(message = "You have to insert a value!")
     private String title;
@@ -34,7 +36,7 @@ public class Product {
     private UserDTO seller;
 
 
-    private Etat state;
+    private State state;
 
     private String stateName;
 
@@ -45,9 +47,10 @@ public class Product {
 
     private LocalDateTime creationDate ;
 
-    public Product(String idProduct, String status, String title, String description, double price, ObjectId idSeller, UserDTO seller, Etat state,String stateName, ObjectId idSubCategory, Subcategory subcategory, LocalDateTime creationDate) {
+    public Product(String idProduct, Status status,String statusName, String title, String description, double price, ObjectId idSeller, UserDTO seller, State state, String stateName, ObjectId idSubCategory, Subcategory subcategory, LocalDateTime creationDate) {
         this.idProduct = idProduct;
         this.status = status;
+        this.statusName=statusName;
         this.title = title;
         this.description = description;
         this.price = price;
