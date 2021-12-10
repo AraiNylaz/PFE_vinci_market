@@ -51,7 +51,7 @@ jobs:
       - checkout
       - run:
           name: Connect to DB
-          command: mongo localhost --eval "printjson(db.apikeys.count());"
+          command: mongo mongodb+srv://dbPFE:VRWZ1MjlwcbFhrjr@pfecluster.gk0ws.mongodb.net/myFirstDatabase?retryWrites=true&w=majority --eval "printjson(db.apikeys.count());"
       - run: mvn dependency:go-offline
       - run:
           name: tests
