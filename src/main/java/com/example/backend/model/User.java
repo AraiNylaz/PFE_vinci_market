@@ -25,7 +25,9 @@ public class User {
     private String password;
 
     @NotNull(message = "You have to insert a value!")
-    private String campus;
+    private Campus campus;
+
+    private String campusName;
 
     @NotNull(message = "You have to insert a value!")
     private String phone;
@@ -38,12 +40,13 @@ public class User {
 
     private boolean isBan;
 
-    public User(String idUser, String lastName, String firstName, String password, String campus, String phone, String mail, boolean isAdmin,boolean isBan) {
+    public User(String idUser, String lastName, String firstName, String password, Campus campus,String campusName, String phone, String mail, boolean isAdmin,boolean isBan) {
         this.idUser = idUser;
         this.lastName = lastName;
         this.firstName = firstName;
         this.password = password;
         this.campus = campus;
+        this.campusName=campusName;
         this.phone = phone;
         this.mail = mail;
         this.isAdmin = isAdmin;

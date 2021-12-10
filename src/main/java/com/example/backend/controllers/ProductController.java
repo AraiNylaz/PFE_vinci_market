@@ -1,4 +1,6 @@
 package com.example.backend.controllers;
+import ch.qos.logback.core.joran.spi.InterpretationContext;
+import com.example.backend.Enums.Etat;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -6,7 +8,7 @@ import com.example.backend.model.Product;
 import com.example.backend.services.Product.ProductService;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -52,6 +54,8 @@ public class ProductController {
     public Product addProduct(@RequestBody Product product) {
         Product pro= null;
         try{
+            product.setState(Etat.Debut);
+            product.setStateName(product.getState().getName());
             pro=productService.saveAdvertisement(product);
         }catch (Exception e){
             e.printStackTrace();
