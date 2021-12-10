@@ -28,7 +28,7 @@ public class Product {
     private String description ;
 
     @NotNull(message = "You have to insert a value!")
-    private double price ;
+    private double price;
 
     @NotNull(message = "You have to insert a value!")
     private ObjectId  idSeller;

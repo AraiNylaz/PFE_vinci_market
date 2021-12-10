@@ -58,18 +58,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(ObjectId idProduct , Product product){
-       /* Product a = productRepository.findByIdAdvertisement(new ObjectId(String.valueOf(id)));
-        if(a ==null){
-            throw  new InternalError("");
-        }
+        Product a = productRepository.findByIdProduct(new ObjectId(String.valueOf(product.getIdProduct())));
         a.setState(product.getState());
+        a.setStatusName(product.getStatus().getName());
         a.setTitle(product.getTitle());
         a.setDescription(product.getDescription());
-        a.setPlace(product.getPlace());
         a.setPrice(product.getPrice());
-        a.setState(product.getState());
-        return productRepository.save(a);*/
-        return null;
+
+        a.setIdSubCategory(product.getIdSubCategory());
+        a.setSubcategory(subCategoriesRepository.findByIdSubCategory(a.getIdSubCategory()));
+        return productRepository.save(a);
     }
 
     @Override

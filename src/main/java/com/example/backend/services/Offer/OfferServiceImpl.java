@@ -56,15 +56,6 @@ public class OfferServiceImpl implements OfferService{
     }
 
     @Override
-    public Offer updateOffer(ObjectId idOffer,Offer offer) {
-        Offer o= offerRepository.getOfferByIdOffer(idOffer);
-        o.setMessage(offer.getMessage());
-        o.setValue(offer.getValue());
-        offerRepository.save(o);
-        return o;
-    }
-
-    @Override
     public void deleteOffer(ObjectId idOffer) {
          offerRepository.deleteByIdOffer(idOffer);
     }

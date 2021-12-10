@@ -17,7 +17,5 @@ public interface OfferService {
 
     Offer getOfferWithId(ObjectId id);
 
-    Offer updateOffer(ObjectId idOffer,Offer offer);
-
     void deleteOffer(ObjectId idOffer);
 }
