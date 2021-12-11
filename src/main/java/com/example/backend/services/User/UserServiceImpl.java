@@ -1,11 +1,13 @@
 package com.example.backend.services.User;
 
 import com.example.backend.model.User;
+import com.example.backend.model.UserDTO;
 import com.example.backend.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,29 +21,51 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> findAllUsers() {
+        List<User> list = userRepository.findAllBy();
+        List<UserDTO> listDTO=new ArrayList<>();
+        for (User u: list) {
+            UserDTO userDTO=new UserDTO(u.getIdUser(),u.getLastName(),u.getFirstName(),u.getCampus(),u.getCampusName(),u.getPhone(),u.getMail(),u.isAdmin(),u.isBan());
+            listDTO.add(userDTO);
+        }
+
+        return listDTO;
     }
 
     @Override
-    public User findOneById(ObjectId id) {
-        return userRepository.findByIdUser(id);
+    public UserDTO findOneById(ObjectId id) {
+        User u=userRepository.findByIdUser(id);
+        UserDTO userDTO=null;
+        if(u!=null) {
+            userDTO=new UserDTO(u.getIdUser(),u.getLastName(),u.getFirstName(),u.getCampus(),u.getCampusName(),u.getPhone(),u.getMail(),u.isAdmin(),u.isBan());
+        }
+        return userDTO;
     }
 
     @Override
-    public User findOneByMail(String mail){return userRepository.findByMail(mail);}
+    public UserDTO findOneByMail(String mail){
+        User u=userRepository.findByMail(mail);
+        UserDTO userDTO=null;
+        if(u!=null) {
+            userDTO = new UserDTO(u.getIdUser(), u.getLastName(), u.getFirstName(), u.getCampus(), u.getCampusName(), u.getPhone(), u.getMail(), u.isAdmin(), u.isBan());
+        }
+        return userDTO;
+    }
 
     @Override
-    public User saveUser(User user ){
+    public UserDTO saveUser(User user ){
         user.setAdmin(false);
         user.setBan(false);
-        return userRepository.save(user);
+        userRepository.save(user);
+        UserDTO userDTO=new UserDTO(user.getIdUser(),user.getLastName(),user.getFirstName(),user.getCampus(),user.getCampusName(),user.getPhone(),user.getMail(),user.isAdmin(),user.isBan());
+        return userDTO;
     }
     @Override
-    public User checkUser(User user){
+    public UserDTO checkUser(User user){
         User u = userRepository.findByMail(user.getMail());
-        if(u!=null && (u.getPassword().equals(user.getPassword()))){
-            return u ;
+        if(u!=null && (u.getPassword().equals(user.getPassword())) && user.isBan()!=true){
+            UserDTO userDTO=new UserDTO(u.getIdUser(),u.getLastName(),u.getFirstName(),u.getCampus(),u.getCampusName(),u.getPhone(),u.getMail(),u.isAdmin(),u.isBan());
+            return userDTO ;
         }
         return null;
     }
@@ -49,20 +73,27 @@ public class UserServiceImpl implements UserService{
     @Override
     public void switchRole(ObjectId id){
         User u=userRepository.findByIdUser(id);
-        u.setAdmin(!u.isAdmin());
-        userRepository.save(u);
+        if(u!=null){
+            u.setAdmin(!u.isAdmin());
+            userRepository.save(u);
+        }
     }
 
     @Override
-    public User updateUser(ObjectId id,User user){
+    public UserDTO updateUser(ObjectId id, User user){
         User u =userRepository.findByIdUser(id);
-        u.setFirstName(user.getFirstName());
-        u.setLastName(user.getLastName());
-        u.setPassword(user.getPassword());
-        u.setCampus(user.getCampus());
-        u.setCampusName(u.getCampus().getName());
-        u.setPhone(user.getPhone());
-        return userRepository.save(u);
+        UserDTO userDTO=null;
+        if(u!=null) {
+            u.setFirstName(user.getFirstName());
+            u.setLastName(user.getLastName());
+            u.setPassword(user.getPassword());
+            u.setCampus(user.getCampus());
+            u.setCampusName(u.getCampus().getName());
+            u.setPhone(user.getPhone());
+            userRepository.save(u);
+            userDTO = new UserDTO(u.getIdUser(), u.getLastName(), u.getFirstName(), u.getCampus(), u.getCampusName(), u.getPhone(), u.getMail(), u.isAdmin(), u.isBan());
+        }
+        return userDTO;
     }
 
     @Override
@@ -73,7 +104,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public void switchBan(ObjectId id){
         User u=userRepository.findByIdUser(id);
-        u.setBan(!u.isBan());
-        userRepository.save(u);
+        if(u!=null){
+            u.setBan(!u.isBan());
+            userRepository.save(u);
+        }
+
     }
 }

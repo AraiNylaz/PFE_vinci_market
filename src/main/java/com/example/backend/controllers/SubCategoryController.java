@@ -1,9 +1,11 @@
 package com.example.backend.controllers;
 
+import com.example.backend.Config.TokenService;
 import com.example.backend.model.Category;
 import com.example.backend.model.Subcategory;
 import com.example.backend.services.SubCategory.SubCategoryService;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,20 +19,29 @@ import java.util.List;
 public class SubCategoryController {
 
     private final SubCategoryService subCategoryService;
+    private TokenService tokenService;
 
-    public SubCategoryController(SubCategoryService subCategoryService) {
+    public SubCategoryController(SubCategoryService subCategoryService,TokenService tokenService) {
         this.subCategoryService = subCategoryService;
+        this.tokenService = tokenService;
     }
 
     @GetMapping
-    public List<Subcategory> getAllSubCategories(){
-        System.out.println("here");
-        return subCategoryService.getAllSubCategories();
+    public ResponseEntity<List<Subcategory>>  getAllSubCategories(@RequestHeader(name="Authorization")String token){
+        if(tokenService.verifyToken(token)){
+            return ResponseEntity.ok().body(subCategoryService.getAllSubCategories());
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/{idCategory}")
-    public List<Subcategory> getAllSubCategoriesByIdCategory(String idCategory){
-        return subCategoryService.getAllSubCategoriesByIdCategory(new ObjectId(String.valueOf(idCategory)));
+    public ResponseEntity<List<Subcategory>> getAllSubCategoriesByIdCategory(@RequestHeader(name="Authorization")String token,String idCategory){
+        if(tokenService.verifyToken(token)){
+            return ResponseEntity.ok().body(subCategoryService.getAllSubCategoriesByIdCategory(new ObjectId(String.valueOf(idCategory))));
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+
     }
 
     /*@PostMapping
@@ -46,20 +57,28 @@ public class SubCategoryController {
     }*/
 
     @PostMapping
-    public Subcategory addSubCategory(@RequestBody Subcategory subcategory){
+    public ResponseEntity<Subcategory> addSubCategory(@RequestHeader(name="Authorization")String token,@RequestBody Subcategory subcategory){
         Subcategory sub=null;
-        try{
-            sub=subCategoryService.saveSubCategory(subcategory.getName(),new ObjectId(String.valueOf(subcategory.getIdCategory())));
-        }catch (Exception e){
-            e.printStackTrace();
+        if(tokenService.verifyTokenAndAdmin(token)){
+            try{
+                sub=subCategoryService.saveSubCategory(subcategory.getName(),new ObjectId(String.valueOf(subcategory.getIdCategory())));
+                return ResponseEntity.ok().body(sub);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
-        return sub;
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
 
     @GetMapping("/delete/{id}")
-    public void deleteSubCategory(@PathVariable String id){
-        subCategoryService.deleteSubCategory(new ObjectId(String.valueOf(id)));
+    public ResponseEntity deleteSubCategory(@RequestHeader(name="Authorization")String token, @PathVariable String id){
+        if(tokenService.verifyTokenAndAdmin(token)) {
+            subCategoryService.deleteSubCategory(new ObjectId(String.valueOf(id)));
+            return ResponseEntity.ok().build();
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
     }
 
     //A voir si c'est nécessaire de faire des updates pour une categorie

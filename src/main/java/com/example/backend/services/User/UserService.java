@@ -1,18 +1,19 @@
 package com.example.backend.services.User;
 
 import com.example.backend.model.User;
+import com.example.backend.model.UserDTO;
 import org.bson.types.ObjectId;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> findAllUsers();
-    User findOneById(ObjectId id);
-    User findOneByMail(String mail);
-    User checkUser(User user);
-    User saveUser (User user);
+    List<UserDTO> findAllUsers();
+    UserDTO findOneById(ObjectId id);
+    UserDTO findOneByMail(String mail);
+    UserDTO checkUser(User user);
+    UserDTO saveUser (User user);
     void switchRole(ObjectId id);
-    User updateUser(ObjectId id,User user);
+    UserDTO updateUser(ObjectId id,User user);
     void deleteUser(ObjectId id);
     void switchBan(ObjectId id);
 }

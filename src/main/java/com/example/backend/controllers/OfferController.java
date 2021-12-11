@@ -1,10 +1,12 @@
 package com.example.backend.controllers;
 
 
+import com.example.backend.Config.TokenService;
 import com.example.backend.model.Offer;
 import com.example.backend.model.User;
 import com.example.backend.services.Offer.OfferService;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,19 +21,29 @@ import java.util.List;
 public class OfferController {
 
     private OfferService offerService;
+    private TokenService tokenService;
 
-    public OfferController(OfferService offerService) {
+    public OfferController(OfferService offerService,TokenService tokenService) {
+        this.tokenService = tokenService;
         this.offerService = offerService;
     }
 
     @GetMapping
-    public List<Offer> getAllOffers(){
-        return offerService.getAllOffers();
+    public ResponseEntity<List<Offer>> getAllOffers(@RequestHeader(name="Authorization")String token){
+        if(tokenService.verifyToken(token)){
+            return ResponseEntity.ok().body(offerService.getAllOffers());
+
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/all/product/{idProduct}")
-    public List<Offer> getAllOffersByIdProduct(@PathVariable String idProduct){
-        return offerService.getAllOffersByIdProduct(new ObjectId(String.valueOf(idProduct)));
+    public ResponseEntity<List<Offer>> getAllOffersByIdProduct(@RequestHeader(name="Authorization")String token,@PathVariable String idProduct){
+        if(tokenService.verifyToken(token)){
+            return ResponseEntity.ok().body(offerService.getAllOffersByIdProduct(new ObjectId(String.valueOf(idProduct))));
+
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
    /* @PostMapping
@@ -46,28 +58,44 @@ public class OfferController {
     }*/
 
     @PostMapping
-    public Offer addOffer(@RequestBody Offer offer){
+    public ResponseEntity<Offer> addOffer(@RequestHeader(name="Authorization")String token,@RequestBody Offer offer){
         Offer o=null;
-        try{
-            o=offerService.saveOffer(offer);
-        }catch (Exception e){
-            e.printStackTrace();
+        if(tokenService.verifyToken(token)){
+            try{
+                o=offerService.saveOffer(offer);
+                return ResponseEntity.ok().body(o);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
-        return o;
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/users/{idBuyer}")
-    public List<Offer> getAllOffersByIdBuyer(String idBuyer){
-        return offerService.getAllOffersByIdBuyer(new ObjectId(String.valueOf(idBuyer)));
+    public ResponseEntity<List<Offer>> getAllOffersByIdBuyer(@RequestHeader(name="Authorization")String token,String idBuyer){
+        if(tokenService.verifyToken(token)){
+            return ResponseEntity.ok().body(offerService.getAllOffersByIdBuyer(new ObjectId(String.valueOf(idBuyer))));
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/{idOffer}")
-    public Offer getOfferById(@PathVariable String idOffer){
-        return offerService.getOfferWithId(new ObjectId(String.valueOf(idOffer)));
+    public ResponseEntity<Offer> getOfferById(@RequestHeader(name="Authorization")String token,@PathVariable String idOffer){
+        Offer o=null;
+        if(tokenService.verifyToken(token)){
+           o=offerService.getOfferWithId(new ObjectId(String.valueOf(idOffer)));
+            return ResponseEntity.ok().body(o);
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/delete/{id}")
-    public void deleteOffer(@PathVariable int id){
-        offerService.deleteOffer(new ObjectId(String.valueOf(id)));
+    public ResponseEntity deleteOffer(@RequestHeader(name="Authorization")String token,@PathVariable int id){
+        if(tokenService.verifyToken(token)) {
+            offerService.deleteOffer(new ObjectId(String.valueOf(id)));
+            return ResponseEntity.ok().build();
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
     }
 }

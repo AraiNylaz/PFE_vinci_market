@@ -4,8 +4,8 @@ import com.example.backend.Config.TokenService;
 import com.example.backend.model.User;
 import com.example.backend.model.UserDTO;
 import com.example.backend.services.User.UserService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -26,44 +26,22 @@ public class UserController {
     }
 
     @GetMapping
-    public Iterable<User> allUser(){
-        return userService.findAllUsers();
-    }
-
-    /*@PostMapping
-    public ResponseEntity<Object> addUser (@RequestBody User user){
-        User u = userService.saveUser(user) ;
-        if(u==null) return ResponseEntity.noContent().build();
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(u.getIdUser())
-                .toUri() ;
-        return  ResponseEntity.created(location).build();
-    }*/
-
-    /*@PostMapping
-    public User addUser (@RequestBody User user) {
-        System.out.println("add user " + user);
-        User u=null;
-        try{
-            user.setCampusName(user.getCampus().getName());
-            u= userService.saveUser(user);
-        }catch(Exception exception){
-            exception.printStackTrace();
+    public ResponseEntity<Iterable<UserDTO>> allUser(@RequestHeader(name="Authorization")String token){
+        if(tokenService.verifyTokenAndAdmin(token)){
+            return ResponseEntity.ok().body(userService.findAllUsers());
         }
-        return u;
-    }*/
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
 
     @PostMapping
     public ResponseEntity<Object> addUser(@RequestBody User user){
-        User u=null;
+        UserDTO u=null;
         try{
             user.setCampusName(user.getCampus().getName());
             u= userService.saveUser(user);
-            UserDTO userDTO=new UserDTO(user.getIdUser(), u.getLastName(), u.getFirstName(), user.getCampus(), user.getCampusName(), user.getPhone(), user.getMail(), user.isAdmin(), user.isBan());
-            String token=tokenService.createToken(userDTO);
-            URI location= ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.getIdUser()).toUri();
-            return ResponseEntity.created(location).header("Authori",token).build();
+            String token=tokenService.createToken(u);
+            URI location= ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(u.getIdUser()).toUri();
+            return ResponseEntity.created(location).header("Authorization",token).build();
         }catch(Exception exception){
             exception.printStackTrace();
         }
@@ -71,38 +49,88 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User checkUser(@RequestBody User user){
-        return userService.checkUser(user);
+    public ResponseEntity<?> checkUser(@RequestBody User user)
+    {
+        UserDTO u=null;
+        try{
+            u=userService.checkUser(user);
+            if(u!=null) {
+                String token = tokenService.createToken(u);
+                return ResponseEntity.ok().header("Authorization", token).build();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/mail")
-    public User getUserByMail(@RequestParam String mail){
-        return userService.findOneByMail(mail);
+    public ResponseEntity<UserDTO> getUserByMail(@RequestHeader(name="Authorization")String token,@RequestParam String mail){
+        if(tokenService.verifyTokenAndAdmin(token)){
+            UserDTO userDTO=userService.findOneByMail(mail);
+            if(userDTO!=null){
+                return ResponseEntity.ok().body(userDTO);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/detail/{id}")
-    public User getUserById(@PathVariable String id){
-        return userService.findOneById(new ObjectId(String.valueOf(id)));
+    public ResponseEntity<UserDTO> getUserById(@RequestHeader(name="Authorization")String token,@PathVariable String id){
+        if(tokenService.verifyTokenAndAdmin(token)){
+            UserDTO userDTO=userService.findOneById(new ObjectId(String.valueOf(id)));
+            if(userDTO!=null){
+                return ResponseEntity.ok().body(userDTO);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/role/{id}")
-    public void switchRole(@PathVariable String id){
-        userService.switchRole(new ObjectId(String.valueOf(id)));
+    public ResponseEntity switchRole(@RequestHeader(name="Authorization")String token,@PathVariable String id){
+        if(tokenService.verifyTokenAndAdmin(token)){
+            userService.switchRole(new ObjectId(String.valueOf(id)));
+            return ResponseEntity.ok().build();
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable String id,@RequestBody User user){
-       return userService.updateUser(new ObjectId(String.valueOf(id)),user);
+    public ResponseEntity<UserDTO> updateUser(@RequestHeader(name="Authorization")String token,@PathVariable String id,@RequestBody User user){
+        if(tokenService.verifyTokenAndAdmin(token)){
+            UserDTO userDTO= userService.updateUser(new ObjectId(String.valueOf(id)),user);
+            if(userDTO!=null){
+                return ResponseEntity.ok().body(userDTO);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/delete/{id}")
-    public void deleteUser(@PathVariable String id){
-        userService.deleteUser(new ObjectId(String.valueOf(id)));
+    public ResponseEntity deleteUser(@RequestHeader(name="Authorization")String token,@PathVariable String id){
+        if(tokenService.verifyTokenAndAdmin(token)){
+            userService.deleteUser(new ObjectId(String.valueOf(id)));
+            return ResponseEntity.ok().build();
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
     }
 
     @GetMapping("/user/{id}")
-    public void switchBan(@PathVariable String id){
-        userService.switchBan(new ObjectId(String.valueOf(id)));
+    public ResponseEntity switchBan(@RequestHeader(name="Authorization")String token,@PathVariable String id){
+        if(tokenService.verifyTokenAndAdmin(token)){
+            userService.switchBan(new ObjectId(String.valueOf(id)));
+            return ResponseEntity.ok().build();
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
 }

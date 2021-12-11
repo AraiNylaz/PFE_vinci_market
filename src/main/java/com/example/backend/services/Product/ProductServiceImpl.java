@@ -28,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     public List<Product> findAllProduct() {
-        return productRepository.findAll();
+        return productRepository.findAllBy();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product saveAdvertisement(Product product){
         User user=userRepository.findByIdUser(new ObjectId(String.valueOf(product.getIdSeller())));
-        UserDTO userDTO=new UserDTO(user.getIdUser(), user.getLastName(), user.getFirstName(), user.getCampus(), user.getPhone(),user.getMail(),user.isAdmin());
+        UserDTO userDTO=new UserDTO(user.getIdUser(), user.getLastName(), user.getFirstName(), user.getCampus(),user.getCampusName(), user.getPhone(),user.getMail(),user.isAdmin(),user.isBan());
         product.setSeller(userDTO);
         Subcategory subcategory=subCategoriesRepository.findByIdSubCategory(new ObjectId(String.valueOf(product.getIdSubCategory())));
         product.setSubcategory(subcategory);
