@@ -38,7 +38,7 @@ public class OfferServiceImpl implements OfferService{
     @Override
     public Offer saveOffer(Offer offer) {
         User user=userRepository.findByIdUser(offer.getIdBuyer());
-        UserDTO userDTO=new UserDTO(user.getIdUser(), user.getLastName(), user.getFirstName(), user.getCampus(), user.getPhone(),user.getMail(),user.isAdmin());
+        UserDTO userDTO=new UserDTO(user.getIdUser(), user.getLastName(), user.getFirstName(), user.getCampus(), user.getCampusName(), user.getPhone(),user.getMail(),user.isAdmin(),user.isBan());
         offer.setBuyer(userDTO);
         Product p=productRepository.findByIdProduct(offer.getIdProduct());
         offer.setProduct(p);

@@ -1,9 +1,16 @@
 package com.example.backend.controllers;
 
+import com.example.backend.Config.TokenService;
 import com.example.backend.model.User;
+import com.example.backend.model.UserDTO;
 import com.example.backend.services.User.UserService;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.bson.types.ObjectId;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -11,9 +18,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private UserService userService;
+    private TokenService tokenService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService,TokenService tokenService) {
         this.userService = userService;
+        this.tokenService=tokenService;
     }
 
     @GetMapping
@@ -32,7 +41,7 @@ public class UserController {
         return  ResponseEntity.created(location).build();
     }*/
 
-    @PostMapping
+    /*@PostMapping
     public User addUser (@RequestBody User user) {
         System.out.println("add user " + user);
         User u=null;
@@ -43,6 +52,22 @@ public class UserController {
             exception.printStackTrace();
         }
         return u;
+    }*/
+
+    @PostMapping
+    public ResponseEntity<Object> addUser(@RequestBody User user){
+        User u=null;
+        try{
+            user.setCampusName(user.getCampus().getName());
+            u= userService.saveUser(user);
+            UserDTO userDTO=new UserDTO(user.getIdUser(), u.getLastName(), u.getFirstName(), user.getCampus(), user.getCampusName(), user.getPhone(), user.getMail(), user.isAdmin(), user.isBan());
+            String token=tokenService.createToken(userDTO);
+            URI location= ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.getIdUser()).toUri();
+            return ResponseEntity.created(location).header("Authori",token).build();
+        }catch(Exception exception){
+            exception.printStackTrace();
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/login")

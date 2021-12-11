@@ -1,4 +1,4 @@
-package com.example.backend.Filters;
+package com.example.backend.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
