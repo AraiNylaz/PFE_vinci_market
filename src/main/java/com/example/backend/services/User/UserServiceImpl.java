@@ -60,7 +60,6 @@ public class UserServiceImpl implements UserService{
         u.setLastName(user.getLastName());
         u.setPassword(user.getPassword());
         u.setCampus(user.getCampus());
-        u.setCampusName(u.getCampus().getName());
         u.setPhone(user.getPhone());
         return userRepository.save(u);
     }
