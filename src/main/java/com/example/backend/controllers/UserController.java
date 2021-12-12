@@ -35,7 +35,7 @@ public class UserController {
 
     @PostMapping
     public User addUser (@RequestBody User user) {
-        System.out.println("add user " + user);
+        //System.out.println("add user " + user);
         User u=null;
         try{
             u= userService.saveUser(user);
