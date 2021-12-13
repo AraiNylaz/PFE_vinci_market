@@ -51,7 +51,7 @@ jobs:
       - checkout
       - run:
           name: Connect to DB
-          command: mongo mongodb+srv://dbPFE:VRWZ1MjlwcbFhrjr@pfecluster.gk0ws.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+          command: mongo $MONGODB_URI
       - run: mvn dependency:go-offline
       - run:
           name: tests
