@@ -51,7 +51,7 @@ jobs:
       - checkout
       - run:
           name: Connect to DB
-          command: mongo $MONGODB_URI
+          command: mongo MONGODB_URI
       - run: mvn dependency:go-offline
       - run:
           name: tests
