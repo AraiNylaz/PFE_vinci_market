@@ -10,6 +10,8 @@ import com.example.backend.model.Product;
 import com.example.backend.services.Product.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/products")
@@ -130,6 +132,13 @@ public class ProductController {
             productService.setToDeleteProducts(new ObjectId(String.valueOf(idProduct)));
             return ResponseEntity.ok().build();
         }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    @GetMapping("/sell")
+    public ResponseEntity<List<Product>> getAllProductForSell(@RequestHeader(name="Authorization")String token){
+        if(tokenService.verifyToken(token))
+            return ResponseEntity.ok().body(productService.getAllProductForSelling());
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 }

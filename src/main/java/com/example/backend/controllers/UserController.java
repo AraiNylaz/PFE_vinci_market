@@ -91,6 +91,15 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> getUserMe(@RequestHeader(name="Authorization")String token){
+        if(tokenService.verifyToken(token)){
+            UserDTO user=userService.findOneById(new ObjectId(String.valueOf(tokenService.decode(token))));
+            return ResponseEntity.ok().body(user);
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
     @GetMapping("/role/{id}")
     public ResponseEntity switchRole(@RequestHeader(name="Authorization")String token,@PathVariable String id){
         if(tokenService.verifyTokenAndAdmin(token)){

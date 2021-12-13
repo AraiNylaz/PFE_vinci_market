@@ -16,5 +16,6 @@ public interface ProductService {
     void sellProduct(ObjectId id);
     void refuseProduct(ObjectId id);
     void setToDeleteProducts(ObjectId id);
+    List<Product> getAllProductForSelling();
 
 }

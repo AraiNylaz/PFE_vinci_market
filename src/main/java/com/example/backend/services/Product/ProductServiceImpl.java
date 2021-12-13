@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -100,6 +101,19 @@ public class ProductServiceImpl implements ProductService {
         product.setState(State.SUPPRIME);
         product.setStateName(product.getState().getName());
         productRepository.save(product);
+    }
+
+    @Override
+    public List<Product> getAllProductForSelling(){
+        //List<Product> firstList=productRepository.findAllBy();
+        /*List<Product> secondList=new ArrayList<>();
+        for (Product p: firstList) {
+            if(p.getState().equals(State.Vente)){
+                secondList.add(p);
+            }
+        }
+        return secondList;*/
+        return productRepository.findAllByState(State.Vente);
     }
 
 

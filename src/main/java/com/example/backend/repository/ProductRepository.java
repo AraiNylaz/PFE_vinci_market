@@ -1,5 +1,7 @@
 package com.example.backend.repository;
 
+import com.example.backend.Enums.State;
+import com.example.backend.Enums.Status;
 import com.example.backend.model.Product;
 import com.example.backend.model.User;
 import org.bson.types.ObjectId;
@@ -16,4 +18,5 @@ public interface ProductRepository extends MongoRepository<Product,ObjectId> {
     List<Product> findAllByIdSubCategory(ObjectId idSubCategory);
     void deleteAllByIdProduct(ObjectId id);
 
+    List<Product> findAllByState(State state);
 }
