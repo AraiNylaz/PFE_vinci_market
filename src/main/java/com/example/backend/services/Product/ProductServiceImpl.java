@@ -1,6 +1,7 @@
 package com.example.backend.services.Product;
 
 import com.example.backend.Enums.State;
+import com.example.backend.Enums.Status;
 import com.example.backend.model.Product;
 import com.example.backend.model.Subcategory;
 import com.example.backend.model.User;
@@ -100,6 +101,11 @@ public class ProductServiceImpl implements ProductService {
         product.setState(State.SUPPRIME);
         product.setStateName(product.getState().getName());
         productRepository.save(product);
+    }
+
+    @Override
+    public List<Product> getProductsByState(State state){
+        return productRepository.findAllByState(state);
     }
 
 

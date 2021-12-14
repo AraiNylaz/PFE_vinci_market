@@ -1,4 +1,5 @@
 package com.example.backend.services.Product;
+import com.example.backend.Enums.State;
 import com.example.backend.model.Product;
 import org.bson.types.ObjectId;
 
@@ -16,5 +17,5 @@ public interface ProductService {
     void sellProduct(ObjectId id);
     void refuseProduct(ObjectId id);
     void setToDeleteProducts(ObjectId id);
-
+    List<Product> getProductsByState(State state);
 }
