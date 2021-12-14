@@ -11,4 +11,5 @@ import java.util.List;
 public interface PictureRepository extends PagingAndSortingRepository<Picture, ObjectId> {
     List<Picture>findByIdProduct(ObjectId idProduct) ;
     void deleteAllByIdProduct(ObjectId idProduct) ;
+    Picture getPictureByIdPicture(ObjectId idProduct);
 }

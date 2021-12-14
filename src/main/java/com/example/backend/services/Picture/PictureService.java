@@ -10,4 +10,7 @@ import java.util.List;
 public interface PictureService {
     List<Picture>getAllByproduct(ObjectId id);
     void deletePicturesByproduct (ObjectId id);
+    Picture getOneByid(ObjectId id);
+    Picture savePicture (Picture picture);
+
 }

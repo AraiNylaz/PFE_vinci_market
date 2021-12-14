@@ -20,4 +20,12 @@ public class PictureServiceIpml implements  PictureService{
     }
     @Override
     public void deletePicturesByproduct (ObjectId id){pictureRepository.deleteAllByIdProduct(id);}
+    @Override
+    public Picture getOneByid(ObjectId id){
+        return pictureRepository.getPictureByIdPicture(id);
+    }
+   @Override
+   public Picture savePicture(Picture picture){
+        return pictureRepository.save(picture);
+   }
 }
