@@ -32,7 +32,9 @@ public class OfferServiceImpl implements OfferService{
 
     @Override
     public List<Offer> getAllOffersByIdProduct(ObjectId id) {
-        return offerRepository.getAllByIdProduct(id);
+        List<Offer> liste=offerRepository.getAllByIdProduct(id);
+        System.out.println("liste " + liste);
+        return liste;
     }
 
     @Override
