@@ -7,6 +7,8 @@ import com.example.backend.model.Product;
 import com.example.backend.services.Product.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/products")
@@ -86,5 +88,20 @@ public class ProductController {
     @GetMapping("setToDelete/{id}")
     public void setToDeleteProducts(@PathVariable String idProduct){
         productService.setToDeleteProducts(new ObjectId(String.valueOf(idProduct)));
+    }
+
+    @GetMapping("all/notValidate")
+    public List<Product> getAllProductEnCoursDeValidation(){
+        return productService.getProductsByState(State.Debut);
+    }
+
+    @GetMapping("all/toSell")
+    public List<Product> getAllProductEnVente(){
+        return productService.getProductsByState(State.Vente);
+    }
+
+    @GetMapping("all/sold")
+    public List<Product> getAllProductVendu(){
+        return productService.getProductsByState(State.Vendu);
     }
 }

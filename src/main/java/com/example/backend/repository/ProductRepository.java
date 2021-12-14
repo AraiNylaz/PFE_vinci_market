@@ -1,5 +1,6 @@
 package com.example.backend.repository;
 
+import com.example.backend.Enums.State;
 import com.example.backend.model.Product;
 import org.bson.types.ObjectId;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -12,5 +13,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, O
     Product findByIdProduct(ObjectId id);
     List<Product> findAllByIdSubCategory(ObjectId idSubCategory);
     void deleteAllByIdProduct(ObjectId id);
+    List<Product> findAllByState(State state);
 
 }
