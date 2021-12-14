@@ -8,7 +8,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
-public interface PictureRepository extends PagingAndSortingRepository<PictureRepository, ObjectId> {
+public interface PictureRepository extends PagingAndSortingRepository<Picture, ObjectId> {
     List<Picture>findByIdProduct(ObjectId idProduct) ;
     void deleteAllByIdProduct(ObjectId idProduct) ;
 }
