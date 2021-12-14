@@ -14,7 +14,7 @@ import java.net.URI;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
-@Controller
+@RestController
 @RequestMapping("/offers")
 public class OfferController {
 
