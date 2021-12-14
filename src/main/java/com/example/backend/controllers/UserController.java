@@ -67,6 +67,9 @@ public class UserController {
 
     @PutMapping("/{id}")
     public User updateUser(@PathVariable String id,@RequestBody User user){
+        System.out.println("user : " + user);
+        System.out.println("id : " + id);
+        System.out.println("objectid   : "+ new ObjectId(String.valueOf(id)));
        return userService.updateUser(new ObjectId(String.valueOf(id)),user);
     }
 
