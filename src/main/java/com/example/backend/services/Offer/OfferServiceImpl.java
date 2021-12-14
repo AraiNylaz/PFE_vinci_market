@@ -32,7 +32,9 @@ public class OfferServiceImpl implements OfferService{
 
     @Override
     public List<Offer> getAllOffersByIdProduct(ObjectId id) {
-        return offerRepository.getAllByIdProduct(id);
+        List<Offer> liste=offerRepository.getAllByIdProduct(id);
+        System.out.println("liste " + liste);
+        return liste;
     }
 
     @Override
@@ -40,9 +42,12 @@ public class OfferServiceImpl implements OfferService{
         User user=userRepository.findByIdUser(offer.getIdBuyer());
         UserDTO userDTO=new UserDTO(user.getIdUser(), user.getLastName(), user.getFirstName(), user.getCampus(), user.getPhone(),user.getMail(),user.isAdmin());
         offer.setBuyer(userDTO);
-        Product p=productRepository.findByIdProduct(offer.getIdProduct());
-        offer.setProduct(p);
-        return offerRepository.save(offer);
+        //Product p=productRepository.findByIdProduct(offer.getIdProduct());
+        //offer.setProduct(p);
+        System.out.println(offer);
+        Offer o=offerRepository.save(offer);
+        System.out.println(o);
+        return o;
     }
 
     @Override

@@ -28,12 +28,12 @@ public class Offer {
 
     private String message;
 
-    public Offer(String idOffer, ObjectId idProduct,Product product, ObjectId idBuyer,UserDTO userDTO , float value, String message) {
+    public Offer(String idOffer, ObjectId idProduct,Product product, ObjectId idBuyer,UserDTO buyer , float value, String message) {
         this.idOffer = idOffer;
         this.idProduct = idProduct;
         this.product=product;
         this.idBuyer = idBuyer;
-        this.buyer=userDTO;
+        this.buyer=buyer;
         this.value = value;
         this.message = message;
     }

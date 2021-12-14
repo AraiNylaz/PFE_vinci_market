@@ -26,6 +26,7 @@ public class OfferController {
 
     @GetMapping
     public List<Offer> getAllOffers(){
+
         return offerService.getAllOffers();
     }
 
