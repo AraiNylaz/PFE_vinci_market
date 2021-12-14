@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
-@Controller
+@RestController
 @RequestMapping("/pictures")
 public class PictureController {
     private PictureService pictureService;
@@ -34,14 +34,16 @@ public class PictureController {
     public Picture getOneByid(@PathVariable String idProduct){
         return pictureService.getOneByid(new ObjectId(String.valueOf(idProduct)));
     }
+
     @PostMapping
-    public Picture  addPicture(@RequestBody Picture picture){
+    public Picture addPicture(@RequestBody Picture picture){
         Picture p =null;
         try{
             p=pictureService.savePicture(picture);
         }catch (Exception e){
             e.printStackTrace();
         }
+        System.out.println(p);
         return p;
     }
 }
