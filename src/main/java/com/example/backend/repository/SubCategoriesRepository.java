@@ -8,7 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface SubCategoriesRepository extends MongoRepository<Subcategory, ObjectId> {
+public interface SubCategoriesRepository extends PagingAndSortingRepository<Subcategory, ObjectId> {
     List<Subcategory> findAllBy();
 
     List<Subcategory> findAllByCategory(Category category);

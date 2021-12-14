@@ -36,7 +36,7 @@ public class SubCategoryServiceImpl implements SubCategoryService{
     public Subcategory saveSubCategory(String name,ObjectId id ) {
         Category c=categoryRepository.findByIdCategory(id);
         Subcategory subcategory=new Subcategory(null,new ObjectId(String.valueOf(c.getIdCategory())),c,name);
-
+        System.out.println(subcategory);
         return subCategoriesRepository.save(subcategory);
     }
 

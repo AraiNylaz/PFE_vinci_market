@@ -14,8 +14,8 @@ public class Category {
     @Id
     private String idCategory;
 
-    @Indexed(unique = true)
     @NotNull(message = "You have to insert a value!")
+    @Indexed(unique = false)
     private String name;
 
     public Category(String idCategory, String name) {
