@@ -2,11 +2,12 @@ package com.example.backend.repository;
 
 import com.example.backend.model.Offer;
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface OfferRepository extends PagingAndSortingRepository<Offer, ObjectId> {
+public interface OfferRepository extends MongoRepository<Offer, ObjectId> {
 
     List<Offer> getAllBy();
     List<Offer> getAllByIdProduct(ObjectId idProduct);
