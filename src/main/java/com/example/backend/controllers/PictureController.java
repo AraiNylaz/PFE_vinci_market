@@ -26,6 +26,8 @@ public class PictureController {
         return pictureService.getAllByproduct(new ObjectId(String.valueOf(idProduct)));
     }
 
-   // @DeleteMapping("/{idProduct}")
-
+    @DeleteMapping("/{idProduct}")
+    public void deleteAllPicturesByproduct(@PathVariable String idProduct){
+        pictureService.deletePicturesByproduct(new ObjectId(String.valueOf(idProduct)));
+    }
 }

@@ -18,4 +18,6 @@ public class PictureServiceIpml implements  PictureService{
     public List<Picture> getAllByproduct(ObjectId id) {
         return pictureRepository.findByIdProduct(id);
     }
+    @Override
+    public void deletePicturesByproduct (ObjectId id){pictureRepository.deleteAllByIdProduct(id);}
 }
