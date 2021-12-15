@@ -2,7 +2,6 @@ package com.example.backend.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
@@ -14,12 +13,14 @@ public class Category {
     @Id
     private String idCategory;
 
-    @NotNull(message = "You have to insert a value!")
-    @Indexed(unique = false)
     private String name;
 
-    public Category(String idCategory, String name) {
+    @NotNull(message = "You have to insert a value!")
+    private String category;
+
+    public Category(String idCategory,String name,String category) {
         this.idCategory = idCategory;
-        this.name = name;
+        this.name=name;
+        this.category = category;
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface CategoryRepository extends PagingAndSortingRepository<Category,ObjectId> {
+public interface CategoryRepository extends MongoRepository<Category,ObjectId> {
     Category findByIdCategory(ObjectId id);
 
     int countAllBy();

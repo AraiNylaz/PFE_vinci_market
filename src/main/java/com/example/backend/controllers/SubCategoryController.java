@@ -1,14 +1,10 @@
 package com.example.backend.controllers;
 
-import com.example.backend.model.Category;
 import com.example.backend.model.Subcategory;
 import com.example.backend.services.SubCategory.SubCategoryService;
 import org.bson.types.ObjectId;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import java.net.URI;
+
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -48,8 +44,9 @@ public class SubCategoryController {
     @PostMapping
     public Subcategory addSubCategory(@RequestBody Subcategory subcategory){
         Subcategory sub=null;
+        System.out.println("here " + subcategory );
         try{
-            sub=subCategoryService.saveSubCategory(subcategory.getName(),new ObjectId(String.valueOf(subcategory.getIdCategory())));
+            sub=subCategoryService.saveSubCategory(subcategory.getSubCategoryName(), subcategory.getCateIdentification());
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -5,6 +5,7 @@ import com.example.backend.model.Subcategory;
 import com.example.backend.repository.CategoryRepository;
 import com.example.backend.repository.SubCategoriesRepository;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class SubCategoryServiceImpl implements SubCategoryService{
     private final SubCategoriesRepository subCategoriesRepository;
     private final CategoryRepository categoryRepository;
 
-
+    @Autowired
     public SubCategoryServiceImpl(SubCategoriesRepository subCategoriesRepository,CategoryRepository categoryRepository) {
         this.subCategoriesRepository = subCategoriesRepository;
         this.categoryRepository=categoryRepository;
@@ -35,20 +36,21 @@ public class SubCategoryServiceImpl implements SubCategoryService{
     @Override
     public Subcategory saveSubCategory(String name,ObjectId id ) {
         Category c=categoryRepository.findByIdCategory(id);
-        Subcategory subcategory=new Subcategory(null,new ObjectId(String.valueOf(c.getIdCategory())),c,name);
+        System.out.println(c);
+        Subcategory subcategory=new Subcategory(id,c,String.valueOf(subCategoriesRepository.countAllBy()),name);
         System.out.println(subcategory);
         return subCategoriesRepository.save(subcategory);
     }
 
     @Override
     public void deleteSubCategory(ObjectId id) {
-        subCategoriesRepository.deleteByIdSubCategory(id);
+        subCategoriesRepository.deleteById(id);
     }
 
     @Override
     public Subcategory update(Subcategory subcategory) {
         Subcategory su=subCategoriesRepository.findByIdSubCategory(new ObjectId(String.valueOf(subcategory.getIdSubCategory())));
-        su.setName(subcategory.getName());
+        su.setSubCategoryName(subcategory.getSubCategoryName());
         return subCategoriesRepository.save(su);
     }
 }
