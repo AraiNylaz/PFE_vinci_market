@@ -2,6 +2,7 @@ package com.example.backend.controllers;
 
 import com.example.backend.Enums.Campus;
 import com.example.backend.model.User;
+import com.example.backend.model.UserDTO;
 import com.example.backend.services.User.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping
-    public Iterable<User> allUser(){
+    public Iterable<UserDTO> allUser(){
         return userService.findAllUsers();
     }
 
@@ -34,9 +35,9 @@ public class UserController {
     }*/
 
     @PostMapping
-    public User addUser (@RequestBody User user) {
+    public UserDTO addUser (@RequestBody User user) {
         //System.out.println("add user " + user);
-        User u=null;
+        UserDTO u=null;
         try{
             u= userService.saveUser(user);
         }catch(Exception exception){
@@ -46,17 +47,17 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User checkUser(@RequestBody User user){
+    public UserDTO checkUser(@RequestBody User user){
         return userService.checkUser(user);
     }
 
     @GetMapping("/mail")
-    public User getUserByMail(@RequestParam String mail){
+    public UserDTO getUserByMail(@RequestParam String mail){
         return userService.findOneByMail(mail);
     }
 
     @GetMapping("/detail/{id}")
-    public User getUserById(@PathVariable String id){
+    public UserDTO getUserById(@PathVariable String id){
         return userService.findOneById(new ObjectId(String.valueOf(id)));
     }
 
@@ -66,7 +67,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable String id,@RequestBody User user){
+    public UserDTO updateUser(@PathVariable String id,@RequestBody User user){
         System.out.println("user : " + user);
         System.out.println("id : " + id);
         System.out.println("objectid   : "+ new ObjectId(String.valueOf(id)));
