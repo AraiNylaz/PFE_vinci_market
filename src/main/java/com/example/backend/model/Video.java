@@ -17,10 +17,10 @@ public class Video {
     @NotNull(message = "You have to insert a value!")
     private String nameVideo;
 
-    public Video(String idVideo, ObjectId idProduct, String namePicture) {
+    public Video(String idVideo, ObjectId idProduct, String nameVideo) {
         this.idVideo = idVideo;
         this.idProduct = idProduct;
-        this.nameVideo = namePicture;
+        this.nameVideo = nameVideo;
     }
 }
 
