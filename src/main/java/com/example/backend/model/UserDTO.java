@@ -23,7 +23,7 @@ public class UserDTO {
         this.phone = phone;
         this.mail = mail;
         this.isAdmin = isAdmin;
-        this.isBan=isBan();
+        this.isBan=isBan;
 
     }
 }
