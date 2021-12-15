@@ -36,7 +36,8 @@ public class UserController {
 
     @PostMapping
     public UserDTO addUser (@RequestBody User user) {
-        if(!user.getMail().endsWith("@student.vinci.be") || !user.getMail().endsWith("@vinci.be")){
+        if(user.getMail().endsWith("@student.vinci.be") || user.getMail().endsWith("@vinci.be")){
+        }else{
             return null;
         }
 
