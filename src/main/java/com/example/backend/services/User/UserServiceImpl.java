@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserDTO checkUser(User user){
         User u = userRepository.findByMail(user.getMail());
-        if(u!=null && (u.getPassword().equals(user.getPassword()))){
+        if(u!=null && (u.getPassword().equals(user.getPassword())) && !u.isBan()){
             UserDTO userDTO=new UserDTO(u.getIdUser(),u.getLastName(),u.getFirstName(),u.getCampus(),u.getPhone(),u.getMail(),u.isAdmin(),u.isBan());
             return userDTO;
         }
