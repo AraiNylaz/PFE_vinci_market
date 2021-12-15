@@ -30,8 +30,8 @@ public class User {
     @NotNull(message = "You have to insert a value!")
     private String phone;
 
-    @Indexed(unique = true)
     @NotNull(message = "You have to insert a value!")
+    @Indexed(unique = true)
     private String mail;
 
     private boolean isAdmin;
