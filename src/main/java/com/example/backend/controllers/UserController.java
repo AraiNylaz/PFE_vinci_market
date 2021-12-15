@@ -36,7 +36,10 @@ public class UserController {
 
     @PostMapping
     public UserDTO addUser (@RequestBody User user) {
-        //System.out.println("add user " + user);
+        if(!user.getMail().endsWith("@student.vinci.be") || !user.getMail().endsWith("@vinci.be")){
+            return null;
+        }
+
         UserDTO u=null;
         try{
             u= userService.saveUser(user);
