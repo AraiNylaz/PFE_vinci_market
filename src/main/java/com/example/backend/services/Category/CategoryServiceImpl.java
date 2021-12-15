@@ -40,6 +40,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public Category saveCategory(Category category){
+        category.setName(String.valueOf(categoryRepository.countAllBy()));
         return categoryRepository.save(category);
     }
 

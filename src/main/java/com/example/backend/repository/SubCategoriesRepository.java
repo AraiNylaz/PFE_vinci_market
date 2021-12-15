@@ -19,5 +19,6 @@ public interface SubCategoriesRepository extends MongoRepository<Subcategory, Ob
 
     void deleteByIdSubCategory(ObjectId idSubCategory);
 
-    Subcategory findByIdSubCategory(ObjectId id);
+    Subcategory findByIdSubCategory(ObjectId idSubCategory);
+
 }
