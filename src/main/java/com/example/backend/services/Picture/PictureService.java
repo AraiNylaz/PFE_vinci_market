@@ -2,7 +2,6 @@ package com.example.backend.services.Picture;
 
 import com.example.backend.model.Picture;
 import org.bson.types.ObjectId;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
