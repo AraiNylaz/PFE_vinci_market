@@ -7,5 +7,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface VideoRepository extends MongoRepository<Video, ObjectId> {
     void deleteByIdProduct(ObjectId idProduct) ;
+
     Video getOneVideoByIdProduct(ObjectId idProduct);
 }
