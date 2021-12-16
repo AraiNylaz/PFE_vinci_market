@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -57,7 +58,8 @@ public class ProductController {
     public Product addProduct(@RequestBody Product product) {
         Product pro= null;
         try{
-            product.setCreationDate(LocalDate.now());
+            ZoneId zid = ZoneId.of("Europe/Paris");
+            product.setCreationDate(LocalDate.now(zid));
             product.setState(State.Debut);
             product.setStateName(product.getState().getName());
             product.setStatusName(product.getStatus().getName());
