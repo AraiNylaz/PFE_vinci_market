@@ -7,6 +7,8 @@ import com.example.backend.model.Product;
 import com.example.backend.services.Product.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -55,6 +57,7 @@ public class ProductController {
     public Product addProduct(@RequestBody Product product) {
         Product pro= null;
         try{
+            product.setCreationDate(LocalDate.now());
             product.setState(State.Debut);
             product.setStateName(product.getState().getName());
             product.setStatusName(product.getStatus().getName());

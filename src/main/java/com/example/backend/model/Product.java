@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -45,9 +46,9 @@ public class Product {
 
     private Subcategory subcategory;
 
-    private LocalDateTime creationDate ;
+    private LocalDate creationDate ;
 
-    public Product(String idProduct, Status status,String statusName, String title, String description, float price, ObjectId idSeller, UserDTO seller, State state, String stateName, ObjectId idSubCategory, Subcategory subcategory, LocalDateTime creationDate) {
+    public Product(String idProduct, Status status,String statusName, String title, String description, float price, ObjectId idSeller, UserDTO seller, State state, String stateName, ObjectId idSubCategory, Subcategory subcategory, LocalDate creationDate) {
         this.idProduct = idProduct;
         this.status = status;
         this.statusName=statusName;
