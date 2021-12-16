@@ -108,5 +108,49 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAllByState(state);
     }
 
+    @Override
+    public List<Product> getProductsByStateEnVenteAndFiltereByPrice(State state,double priceMin,double priceMax){
+        if(priceMin>priceMax && priceMax!=-1){
+            double a=priceMin;
+            priceMin=priceMax;
+            priceMax=a;
+        }
+
+        if(priceMax==-1) {
+            Product p=productRepository.findFirstByStateOrderByPriceDesc(state);
+            priceMax=p.getPrice();
+        }
+        System.out.println(priceMin);
+        System.out.println(priceMax);
+
+        return productRepository.findAllByState(state,priceMin,priceMax);
+    }
+
+    @Override
+    public List<Product> getProductByStateAndCategorie(State state,ObjectId idSubCategory){
+        return productRepository.findAllByStateAndIdSubCategory(state,idSubCategory);
+    }
+
+    @Override
+    public List<Product> getAllProductsFromOneUser(ObjectId id){
+        return productRepository.findAllByIdSeller(id);
+    }
+
+    @Override
+    public List<Product> getProductsFilteredByPriceAndSubCategory(State state,ObjectId idSubCategory,double priceMin,double priceMax){
+
+        if(priceMin>priceMax && priceMax!=-1){
+            double a=priceMin;
+            priceMin=priceMax;
+            priceMax=a;
+        }
+
+        if(priceMax==-1) {
+            Product p=productRepository.findFirstByStateOrderByPriceDesc(state);
+            priceMax=p.getPrice();
+        }
+
+        return productRepository.findAllByStateAndPriceAndSubCategory(State.Vente,idSubCategory,priceMin,priceMax);
+    }
 
 }
