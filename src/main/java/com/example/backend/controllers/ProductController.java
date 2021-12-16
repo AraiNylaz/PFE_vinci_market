@@ -105,17 +105,17 @@ public class ProductController {
 
 
     @GetMapping("all/toSell")
-    public List<Product> getAllProductEnVente(@RequestParam(required = false)String idSubCategory,@RequestParam(required = false,defaultValue = "-1.0") double priceMin,@RequestParam(required = false,defaultValue = "-1.0") double priceMax){
+    public List<Product> getAllProductEnVente(@RequestParam(required = false,defaultValue = " ")String idSubCategory,@RequestParam(required = false,defaultValue = "-1.0") double priceMin,@RequestParam(required = false,defaultValue = "-1.0") double priceMax){
         System.out.println(idSubCategory +" " +priceMin +" " +priceMax);
-        if(idSubCategory==null && testPrices(priceMin,priceMax)){
+        if(idSubCategory.equals(" ") && testPrices(priceMin,priceMax)){
             return productService.getProductsByStateEnVenteAndFiltereByPrice(State.Vente,priceMin,priceMax);
         }
 
-        if(idSubCategory!=null && testPrices(priceMin,priceMax)  ){
+        if(!idSubCategory.equals(" ") && testPrices(priceMin,priceMax)  ){
             return productService.getProductsFilteredByPriceAndSubCategory(State.Vente,new ObjectId(String.valueOf(idSubCategory)),priceMin,priceMax);
         }
 
-        if(idSubCategory !=null && priceMin ==-1 && priceMax==-1){
+        if(!idSubCategory.equals(" ") && priceMin ==-1 && priceMax==-1){
             return productService.getProductByStateAndCategorie(State.Vente,new ObjectId(String.valueOf(idSubCategory)));
         }
 
