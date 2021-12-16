@@ -71,23 +71,23 @@ public class ProductController {
     }
 
     @GetMapping("/valid/{id}")
-    public void acceptProduct(@PathVariable String idProduct){
-        productService.acceptProduct(new ObjectId(String.valueOf(idProduct)));
+    public void acceptProduct(@PathVariable String id){
+        productService.acceptProduct(new ObjectId(String.valueOf(id)));
     }
 
     @GetMapping("/sell/{id}")
-    public void sellProduct(@PathVariable String idProduct){
-        productService.sellProduct(new ObjectId(String.valueOf(idProduct)));
+    public void sellProduct(@PathVariable String id){
+        productService.sellProduct(new ObjectId(String.valueOf(id)));
     }
 
     @GetMapping("refuse/{id}")
-    public void refuseProduct(@PathVariable String idProduct){
-        productService.refuseProduct(new ObjectId(String.valueOf(idProduct)));
+    public void refuseProduct(@PathVariable String id){
+        productService.refuseProduct(new ObjectId(String.valueOf(id)));
     }
 
     @GetMapping("setToDelete/{id}")
-    public void setToDeleteProducts(@PathVariable String idProduct){
-        productService.setToDeleteProducts(new ObjectId(String.valueOf(idProduct)));
+    public void setToDeleteProducts(@PathVariable String id){
+        productService.setToDeleteProducts(new ObjectId(String.valueOf(id)));
     }
 
     @GetMapping("all/notValidate")
