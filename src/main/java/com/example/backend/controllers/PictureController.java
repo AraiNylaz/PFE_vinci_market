@@ -30,7 +30,7 @@ public class PictureController {
     public void deleteAllPicturesByproduct(@PathVariable String idProduct){
         pictureService.deletePicturesByproduct(new ObjectId(String.valueOf(idProduct)));
     }
-    @GetMapping("/one/{id}")
+    @GetMapping("/one/{idProduct}")
     public Picture getOneByid(@PathVariable String idProduct){
         return pictureService.getOneByid(new ObjectId(String.valueOf(idProduct)));
     }

@@ -70,22 +70,22 @@ public class ProductController {
         productService.updateProduct(new ObjectId(String.valueOf(idProduct)), product);
     }
 
-    @GetMapping("/valid/{id}")
+    @GetMapping("/valid/{idProduct}")
     public void acceptProduct(@PathVariable String idProduct){
         productService.acceptProduct(new ObjectId(String.valueOf(idProduct)));
     }
 
-    @GetMapping("/sell/{id}")
+    @GetMapping("/sell/{idProduct}")
     public void sellProduct(@PathVariable String idProduct){
         productService.sellProduct(new ObjectId(String.valueOf(idProduct)));
     }
 
-    @GetMapping("refuse/{id}")
+    @GetMapping("refuse/{idProduct}")
     public void refuseProduct(@PathVariable String idProduct){
         productService.refuseProduct(new ObjectId(String.valueOf(idProduct)));
     }
 
-    @GetMapping("setToDelete/{id}")
+    @GetMapping("setToDelete/{idProduct}")
     public void setToDeleteProducts(@PathVariable String idProduct){
         productService.setToDeleteProducts(new ObjectId(String.valueOf(idProduct)));
     }
