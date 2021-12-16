@@ -95,8 +95,30 @@ public class ProductController {
         return productService.getProductsByState(State.Debut);
     }
 
+
+    private boolean testPrices(double priceMin,double priceMax){
+        if(((priceMin != -1 && priceMax!=-1) || (priceMin != -1 && priceMax==-1) || (priceMin==-1 && priceMax!=-1))){
+            return true;
+        }
+        return false;
+    }
+
+
     @GetMapping("all/toSell")
-    public List<Product> getAllProductEnVente(){
+    public List<Product> getAllProductEnVente(@RequestParam(required = false)String idSubCategory,@RequestParam(required = false,defaultValue = "-1.0") double priceMin,@RequestParam(required = false,defaultValue = "-1.0") double priceMax){
+        System.out.println(idSubCategory +" " +priceMin +" " +priceMax);
+        if(idSubCategory==null && testPrices(priceMin,priceMax)){
+            return productService.getProductsByStateEnVenteAndFiltereByPrice(State.Vente,priceMin,priceMax);
+        }
+
+        if(idSubCategory!=null && testPrices(priceMin,priceMax)  ){
+            return productService.getProductsFilteredByPriceAndSubCategory(State.Vente,new ObjectId(String.valueOf(idSubCategory)),priceMin,priceMax);
+        }
+
+        if(idSubCategory !=null && priceMin ==-1 && priceMax==-1){
+            return productService.getProductByStateAndCategorie(State.Vente,new ObjectId(String.valueOf(idSubCategory)));
+        }
+
         return productService.getProductsByState(State.Vente);
     }
 
@@ -104,4 +126,12 @@ public class ProductController {
     public List<Product> getAllProductVendu(){
         return productService.getProductsByState(State.Vendu);
     }
+
+
+    @GetMapping("user/{id}")
+    public List<Product> getAllProductFromOneUser(@PathVariable String id){
+        return productService.getAllProductsFromOneUser(new ObjectId(String.valueOf(id)));
+    }
+
+
 }

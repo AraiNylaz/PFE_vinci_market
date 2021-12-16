@@ -28,7 +28,7 @@ public class Product {
     private String description ;
 
     @NotNull(message = "You have to insert a value!")
-    private double price;
+    private float price;
 
     @NotNull(message = "You have to insert a value!")
     private ObjectId  idSeller;
@@ -47,7 +47,7 @@ public class Product {
 
     private LocalDateTime creationDate ;
 
-    public Product(String idProduct, Status status,String statusName, String title, String description, double price, ObjectId idSeller, UserDTO seller, State state, String stateName, ObjectId idSubCategory, Subcategory subcategory, LocalDateTime creationDate) {
+    public Product(String idProduct, Status status,String statusName, String title, String description, float price, ObjectId idSeller, UserDTO seller, State state, String stateName, ObjectId idSubCategory, Subcategory subcategory, LocalDateTime creationDate) {
         this.idProduct = idProduct;
         this.status = status;
         this.statusName=statusName;
